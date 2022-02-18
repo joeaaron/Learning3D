@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>650</width>
+    <height>524</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QVTKWidget" name="qvtkWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>631</width>
+      <height>471</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>650</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>文件</string>
+    </property>
+   </widget>
+   <addaction name="menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionOpen"/>
+   <addaction name="separator"/>
+   <addaction name="actionUp"/>
+   <addaction name="actionBottom"/>
+   <addaction name="actionFront"/>
+   <addaction name="actionBack"/>
+   <addaction name="actionLeft"/>
+   <addaction name="actionRight"/>
+  </widget>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="PCLView.qrc">
+     <normaloff>:/PointCloudVision/image/open.png</normaloff>:/PointCloudVision/image/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionUp">
+   <property name="icon">
+    <iconset resource="PCLView.qrc">
+     <normaloff>:/PointCloudVision/image/up.png</normaloff>:/PointCloudVision/image/up.png</iconset>
+   </property>
+   <property name="text">
+    <string>Up</string>
+   </property>
+  </action>
+  <action name="actionBottom">
+   <property name="icon">
+    <iconset resource="PCLView.qrc">
+     <normaloff>:/PointCloudVision/image/bottom.png</normaloff>:/PointCloudVision/image/bottom.png</iconset>
+   </property>
+   <property name="text">
+    <string>Bottom</string>
+   </property>
+  </action>
+  <action name="actionFront">
+   <property name="icon">
+    <iconset resource="PCLView.qrc">
+     <normaloff>:/PointCloudVision/image/front.png</normaloff>:/PointCloudVision/image/front.png</iconset>
+   </property>
+   <property name="text">
+    <string>Front</string>
+   </property>
+  </action>
+  <action name="actionBack">
+   <property name="icon">
+    <iconset resource="PCLView.qrc">
+     <normaloff>:/PointCloudVision/image/back.png</normaloff>:/PointCloudVision/image/back.png</iconset>
+   </property>
+   <property name="text">
+    <string>Back</string>
+   </property>
+  </action>
+  <action name="actionLeft">
+   <property name="icon">
+    <iconset resource="PCLView.qrc">
+     <normaloff>:/PointCloudVision/image/left.png</normaloff>:/PointCloudVision/image/left.png</iconset>
+   </property>
+   <property name="text">
+    <string>Left</string>
+   </property>
+  </action>
+  <action name="actionRight">
+   <property name="icon">
+    <iconset resource="PCLView.qrc">
+     <normaloff>:/PointCloudVision/image/right.png</normaloff>:/PointCloudVision/image/right.png</iconset>
+   </property>
+   <property name="text">
+    <string>Right</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QVTKWidget</class>
+   <extends>QWidget</extends>
+   <header>QVTKWidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="PCLView.qrc"/>
+ </resources>
+ <connections/>
+ <slots>
+  <slot>OnFileOpen()</slot>
+ </slots>
+</ui>
