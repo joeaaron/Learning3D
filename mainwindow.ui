@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
-    <height>524</height>
+    <width>1014</width>
+    <height>775</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>PCViewer</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QVTKWidget" name="qvtkWidget">
@@ -19,8 +19,8 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>631</width>
-      <height>471</height>
+      <width>991</width>
+      <height>691</height>
      </rect>
     </property>
    </widget>
@@ -30,7 +30,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>650</width>
+     <width>1014</width>
      <height>26</height>
     </rect>
    </property>

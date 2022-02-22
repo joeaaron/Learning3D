@@ -59,7 +59,18 @@ private:
 	//*****************************************************
 	void UpdateDisplay();
 
-    Ui::MainWindow *ui;
+	//*****************************************************
+	// Function:	 GetMaxValue
+	// FullName:	 MainWindow::GetMaxValue
+	// Description:	 获取长宽高最大值
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	double GetMaxValue(PointT p1, PointT p2);
+    
+	Ui::MainWindow *ui;
 
 	Cloud::Ptr m_pCloud;												// 当前点云
 
@@ -70,6 +81,8 @@ private:
 	PointT m_PointMin;													//点云坐标极值-最小
 
 	PointT m_PointMax;													//点云坐标极值-最大
+
+	double m_dMaxLen;															
 
 public slots:
 	//*****************************************************
@@ -82,6 +95,66 @@ public slots:
 	//				 
 	//*****************************************************
 	void on_actionOpen_triggered();
+	//*****************************************************
+	// Function:	 on_actionUp_triggered
+	// FullName:	 MainWindow::on_actionUp_triggered
+	// Description:	 俯视图
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionUp_triggered();
+	//*****************************************************
+	// Function:	 on_actionBottom_triggered
+	// FullName:	 MainWindow::on_actionBottom_triggered
+	// Description:	 仰视图
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionBottom_triggered();
+	//*****************************************************
+	// Function:	 on_actionFront_triggered
+	// FullName:	 MainWindow::on_actionFront_triggered
+	// Description:	 前视图
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionFront_triggered();
+	//*****************************************************
+	// Function:	 on_actionBack_triggered
+	// FullName:	 MainWindow::on_actionBack_triggered
+	// Description:	 后视图
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionBack_triggered();
+	//*****************************************************
+	// Function:	 on_actionBack_triggered
+	// FullName:	 MainWindow::on_actionBack_triggered
+	// Description:	 左视图
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionLeft_triggered();
+	//*****************************************************
+	// Function:	 on_actionBack_triggered
+	// FullName:	 MainWindow::on_actionBack_triggered
+	// Description:	 右视图
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionRight_triggered();
 };
 
 
