@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1014</width>
+    <width>1046</width>
     <height>775</height>
    </rect>
   </property>
@@ -30,7 +30,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1014</width>
+     <width>1046</width>
      <height>26</height>
     </rect>
    </property>
@@ -38,6 +38,7 @@
     <property name="title">
      <string>文件</string>
     </property>
+    <addaction name="actionOpen"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -54,6 +55,17 @@
    </attribute>
    <addaction name="actionOpen"/>
    <addaction name="separator"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_2">
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>RightToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
    <addaction name="actionUp"/>
    <addaction name="actionBottom"/>
    <addaction name="actionFront"/>
