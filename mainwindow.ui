@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1046</width>
-    <height>775</height>
+    <width>1146</width>
+    <height>813</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="QVTKWidget" name="qvtkWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>991</width>
-      <height>691</height>
+      <x>0</x>
+      <y>0</y>
+      <width>1001</width>
+      <height>651</height>
      </rect>
     </property>
    </widget>
@@ -30,7 +30,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1046</width>
+     <width>1146</width>
      <height>26</height>
     </rect>
    </property>
@@ -55,6 +55,7 @@
    </attribute>
    <addaction name="actionOpen"/>
    <addaction name="separator"/>
+   <addaction name="actionClear"/>
   </widget>
   <widget class="QToolBar" name="toolBar_2">
    <property name="windowTitle">
@@ -73,10 +74,143 @@
    <addaction name="actionLeft"/>
    <addaction name="actionRight"/>
   </widget>
+  <widget class="QDockWidget" name="dataDock">
+   <property name="minimumSize">
+    <size>
+     <width>250</width>
+     <height>235</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>Point Cloud</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <widget class="QTreeWidget" name="dataTree">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>241</width>
+       <height>301</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>180</height>
+      </size>
+     </property>
+     <column>
+      <property name="text">
+       <string notr="true">Point Cloud File</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="propertyDock">
+   <property name="minimumSize">
+    <size>
+     <width>250</width>
+     <height>235</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>Properties</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <widget class="QTableWidget" name="propertyTable">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>1</y>
+       <width>231</width>
+       <height>291</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>180</height>
+      </size>
+     </property>
+     <column>
+      <property name="text">
+       <string>Property</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Value</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="Consoledock">
+   <property name="minimumSize">
+    <size>
+     <width>200</width>
+     <height>140</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>Console</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <widget class="QTableWidget" name="tableWidget">
+     <property name="geometry">
+      <rect>
+       <x>-30</x>
+       <y>0</y>
+       <width>1131</width>
+       <height>192</height>
+      </rect>
+     </property>
+     <attribute name="horizontalHeaderDefaultSectionSize">
+      <number>200</number>
+     </attribute>
+     <column>
+      <property name="text">
+       <string>Time</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Operation</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Operation Object</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Details</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Note</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+  </widget>
   <action name="actionOpen">
    <property name="icon">
     <iconset resource="PCLView.qrc">
-     <normaloff>:/PointCloudVision/image/open.png</normaloff>:/PointCloudVision/image/open.png</iconset>
+     <normaloff>:/PointCloudVision/image/add.png</normaloff>:/PointCloudVision/image/add.png</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -137,6 +271,18 @@
    </property>
    <property name="text">
     <string>Right</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="PCLView.qrc">
+     <normaloff>:/PointCloudVision/image/clear.png</normaloff>:/PointCloudVision/image/clear.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear</string>
    </property>
   </action>
  </widget>

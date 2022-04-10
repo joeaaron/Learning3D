@@ -96,6 +96,16 @@ public slots:
 	//*****************************************************
 	void on_actionOpen_triggered();
 	//*****************************************************
+	// Function:	 on_actionClear_triggered
+	// FullName:	 MainWindow::on_actionClear_triggered
+	// Description:	 清空点云文件
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionClear_triggered();
+	//*****************************************************
 	// Function:	 on_actionUp_triggered
 	// FullName:	 MainWindow::on_actionUp_triggered
 	// Description:	 俯视图

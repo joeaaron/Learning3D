@@ -59,6 +59,11 @@ void MainWindow::on_actionOpen_triggered()
 	UpdateDisplay();
 }
 
+void MainWindow::on_actionClear_triggered()
+{
+	
+}
+
 void MainWindow::on_actionUp_triggered()
 {
 	if (!m_pCloud->empty())
