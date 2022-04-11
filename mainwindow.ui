@@ -210,7 +210,7 @@
   <action name="actionOpen">
    <property name="icon">
     <iconset resource="PCLView.qrc">
-     <normaloff>:/PointCloudVision/image/add.png</normaloff>:/PointCloudVision/image/add.png</iconset>
+     <normaloff>:/PointCloudVision/resource/images/add.png</normaloff>:/PointCloudVision/resource/images/add.png</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -222,7 +222,7 @@
   <action name="actionUp">
    <property name="icon">
     <iconset resource="PCLView.qrc">
-     <normaloff>:/PointCloudVision/image/up.png</normaloff>:/PointCloudVision/image/up.png</iconset>
+     <normaloff>:/PointCloudVision/resource/images/up.png</normaloff>:/PointCloudVision/resource/images/up.png</iconset>
    </property>
    <property name="text">
     <string>Up</string>
@@ -231,7 +231,7 @@
   <action name="actionBottom">
    <property name="icon">
     <iconset resource="PCLView.qrc">
-     <normaloff>:/PointCloudVision/image/bottom.png</normaloff>:/PointCloudVision/image/bottom.png</iconset>
+     <normaloff>:/PointCloudVision/resource/images/bottom.png</normaloff>:/PointCloudVision/resource/images/bottom.png</iconset>
    </property>
    <property name="text">
     <string>Bottom</string>
@@ -240,7 +240,7 @@
   <action name="actionFront">
    <property name="icon">
     <iconset resource="PCLView.qrc">
-     <normaloff>:/PointCloudVision/image/front.png</normaloff>:/PointCloudVision/image/front.png</iconset>
+     <normaloff>:/PointCloudVision/resource/images/front.png</normaloff>:/PointCloudVision/resource/images/front.png</iconset>
    </property>
    <property name="text">
     <string>Front</string>
@@ -249,7 +249,7 @@
   <action name="actionBack">
    <property name="icon">
     <iconset resource="PCLView.qrc">
-     <normaloff>:/PointCloudVision/image/back.png</normaloff>:/PointCloudVision/image/back.png</iconset>
+     <normaloff>:/PointCloudVision/resource/images/back.png</normaloff>:/PointCloudVision/resource/images/back.png</iconset>
    </property>
    <property name="text">
     <string>Back</string>
@@ -258,7 +258,7 @@
   <action name="actionLeft">
    <property name="icon">
     <iconset resource="PCLView.qrc">
-     <normaloff>:/PointCloudVision/image/left.png</normaloff>:/PointCloudVision/image/left.png</iconset>
+     <normaloff>:/PointCloudVision/resource/images/left.png</normaloff>:/PointCloudVision/resource/images/left.png</iconset>
    </property>
    <property name="text">
     <string>Left</string>
@@ -267,7 +267,7 @@
   <action name="actionRight">
    <property name="icon">
     <iconset resource="PCLView.qrc">
-     <normaloff>:/PointCloudVision/image/right.png</normaloff>:/PointCloudVision/image/right.png</iconset>
+     <normaloff>:/PointCloudVision/resource/images/right.png</normaloff>:/PointCloudVision/resource/images/right.png</iconset>
    </property>
    <property name="text">
     <string>Right</string>
@@ -279,7 +279,7 @@
    </property>
    <property name="icon">
     <iconset resource="PCLView.qrc">
-     <normaloff>:/PointCloudVision/image/clear.png</normaloff>:/PointCloudVision/image/clear.png</iconset>
+     <normaloff>:/PointCloudVision/resource/images/clear.png</normaloff>:/PointCloudVision/resource/images/clear.png</iconset>
    </property>
    <property name="text">
     <string>Clear</string>

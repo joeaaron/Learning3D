@@ -7,37 +7,22 @@
 // Description: 点云显示
 // History:
 // <version>    <date>	    <author>	<desc>
-// 1.0.0	    2012/02/18	   Z 	    build this module
+// 1.0.0	    2022/02/18	   Z 	    build this module
 ****************************************************************/
 
 #pragma once
-//设置中文编码
-#pragma execution_character_set("utf-8")
 
-// !PCL
-#include <pcl/common/common.h>
-#include <pcl/point_types.h>	
-#include <pcl/point_cloud.h>	
-#include <pcl/io/ply_io.h>
-#include <pcl/io/pcd_io.h>
-#include <pcl/visualization/pcl_visualizer.h>	
-#include <pcl/filters/filter.h>
-#include <vtkRenderWindow.h>	
-
+// !QT
 #include <QMainWindow>
 #include <QFileDialog.h>
 
-// !VTK
-#include <vtkAutoInit.h> 
-VTK_MODULE_INIT(vtkRenderingOpenGL2);
-VTK_MODULE_INIT(vtkInteractionStyle);
+// !Own
+#include "MyCloudDef.h"
 
 namespace Ui {
 class MainWindow;
 }
 
-using PointT = pcl::PointXYZ;
-using Cloud = pcl::PointCloud<PointT>;
 
 class MainWindow : public QMainWindow
 {

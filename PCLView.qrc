@@ -1,13 +1,13 @@
 <RCC>
     <qresource prefix="/PointCloudVision">
-		<file>image/open.png</file>
-		<file>image/add.png</file>
-		<file>image/clear.png</file>
-        <file>image/back.png</file>
-        <file>image/bottom.png</file>
-        <file>image/front.png</file>
-        <file>image/left.png</file>
-        <file>image/right.png</file>
-        <file>image/up.png</file>
+		<file>resource/images/open.png</file>
+		<file>resource/images/add.png</file>
+		<file>resource/images/clear.png</file>
+        <file>resource/images/back.png</file>
+        <file>resource/images/bottom.png</file>
+        <file>resource/images/front.png</file>
+        <file>resource/images/left.png</file>
+        <file>resource/images/right.png</file>
+        <file>resource/images/up.png</file>
     </qresource>
 </RCC>
