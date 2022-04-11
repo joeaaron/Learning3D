@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/PointCloudVision">
+    <qresource prefix="/">
 		<file>resource/images/open.png</file>
 		<file>resource/images/add.png</file>
 		<file>resource/images/clear.png</file>
@@ -9,5 +9,6 @@
         <file>resource/images/left.png</file>
         <file>resource/images/right.png</file>
         <file>resource/images/up.png</file>
+		<file>resource/images/icon.png</file>
     </qresource>
 </RCC>

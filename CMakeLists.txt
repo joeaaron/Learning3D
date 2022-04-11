@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-Set(PROJECT_NAME PCLViewer)
+Set(PROJECT_NAME EasyCloud)
 project(${PROJECT_NAME})
 
 set(CMAKE_AUTOMOC ON) # For meta object compiler
@@ -26,7 +26,7 @@ target_include_directories(${PROJECT_NAME}
 #link
 target_link_directories( ${PROJECT_NAME} 
 	PUBLIC
-		${PCL_LIBRARY_DIRS}
+	${PCL_LIBRARY_DIRS}
 )
 target_link_libraries(${PROJECT_NAME}
 	${PCL_LIBRARIES}

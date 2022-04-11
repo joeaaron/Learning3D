@@ -94,7 +94,7 @@
        <x>0</x>
        <y>0</y>
        <width>241</width>
-       <height>301</height>
+       <height>251</height>
       </rect>
      </property>
      <property name="minimumSize">
@@ -131,7 +131,7 @@
        <x>10</x>
        <y>1</y>
        <width>231</width>
-       <height>291</height>
+       <height>251</height>
       </rect>
      </property>
      <property name="minimumSize">
@@ -140,6 +140,22 @@
        <height>180</height>
       </size>
      </property>
+     <property name="showGrid">
+      <bool>false</bool>
+     </property>
+     <property name="rowCount">
+      <number>4</number>
+     </property>
+     <attribute name="horizontalHeaderVisible">
+      <bool>true</bool>
+     </attribute>
+     <attribute name="verticalHeaderVisible">
+      <bool>false</bool>
+     </attribute>
+     <row/>
+     <row/>
+     <row/>
+     <row/>
      <column>
       <property name="text">
        <string>Property</string>
@@ -167,7 +183,7 @@
     <number>8</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents_3">
-    <widget class="QTableWidget" name="tableWidget">
+    <widget class="QTableWidget" name="consoleTable">
      <property name="geometry">
       <rect>
        <x>-30</x>
@@ -209,8 +225,8 @@
   </widget>
   <action name="actionOpen">
    <property name="icon">
-    <iconset resource="PCLView.qrc">
-     <normaloff>:/PointCloudVision/resource/images/add.png</normaloff>:/PointCloudVision/resource/images/add.png</iconset>
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/add.png</normaloff>:/resource/images/add.png</iconset>
    </property>
    <property name="text">
     <string>Open</string>
@@ -221,7 +237,7 @@
   </action>
   <action name="actionUp">
    <property name="icon">
-    <iconset resource="PCLView.qrc">
+    <iconset>
      <normaloff>:/PointCloudVision/resource/images/up.png</normaloff>:/PointCloudVision/resource/images/up.png</iconset>
    </property>
    <property name="text">
@@ -230,7 +246,7 @@
   </action>
   <action name="actionBottom">
    <property name="icon">
-    <iconset resource="PCLView.qrc">
+    <iconset>
      <normaloff>:/PointCloudVision/resource/images/bottom.png</normaloff>:/PointCloudVision/resource/images/bottom.png</iconset>
    </property>
    <property name="text">
@@ -239,7 +255,7 @@
   </action>
   <action name="actionFront">
    <property name="icon">
-    <iconset resource="PCLView.qrc">
+    <iconset>
      <normaloff>:/PointCloudVision/resource/images/front.png</normaloff>:/PointCloudVision/resource/images/front.png</iconset>
    </property>
    <property name="text">
@@ -248,7 +264,7 @@
   </action>
   <action name="actionBack">
    <property name="icon">
-    <iconset resource="PCLView.qrc">
+    <iconset>
      <normaloff>:/PointCloudVision/resource/images/back.png</normaloff>:/PointCloudVision/resource/images/back.png</iconset>
    </property>
    <property name="text">
@@ -257,7 +273,7 @@
   </action>
   <action name="actionLeft">
    <property name="icon">
-    <iconset resource="PCLView.qrc">
+    <iconset>
      <normaloff>:/PointCloudVision/resource/images/left.png</normaloff>:/PointCloudVision/resource/images/left.png</iconset>
    </property>
    <property name="text">
@@ -266,7 +282,7 @@
   </action>
   <action name="actionRight">
    <property name="icon">
-    <iconset resource="PCLView.qrc">
+    <iconset>
      <normaloff>:/PointCloudVision/resource/images/right.png</normaloff>:/PointCloudVision/resource/images/right.png</iconset>
    </property>
    <property name="text">
@@ -278,8 +294,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="PCLView.qrc">
-     <normaloff>:/PointCloudVision/resource/images/clear.png</normaloff>:/PointCloudVision/resource/images/clear.png</iconset>
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/clear.png</normaloff>:/resource/images/clear.png</iconset>
    </property>
    <property name="text">
     <string>Clear</string>
@@ -295,7 +311,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="PCLView.qrc"/>
+  <include location="EasyCloud.qrc"/>
  </resources>
  <connections/>
  <slots>

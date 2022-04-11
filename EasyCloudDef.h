@@ -15,16 +15,19 @@
 #pragma execution_character_set("utf-8")
 
 // !C/C++
+#include <iostream>
 #include <string>
+#include <vector>
 
 // !PCL
 #include <pcl/common/common.h>
-#include <pcl/point_types.h>	
-#include <pcl/point_cloud.h>	
+#include <pcl/point_types.h>
 #include <pcl/io/ply_io.h>
 #include <pcl/io/pcd_io.h>
+#include <pcl/io/obj_io.h>
 #include <pcl/visualization/pcl_visualizer.h>	
 #include <pcl/filters/filter.h>
+#include <pcl/point_cloud.h>	
 
 // !VTK
 #include <vtkRenderWindow.h>	
@@ -32,7 +35,7 @@
 VTK_MODULE_INIT(vtkRenderingOpenGL2);
 VTK_MODULE_INIT(vtkInteractionStyle);
 
-using PointT = pcl::PointXYZ;
+using PointT = pcl::PointXYZRGBA;
 using Cloud = pcl::PointCloud<PointT>;
 
 namespace MyCloud
@@ -43,7 +46,7 @@ namespace MyCloud
 		std::string strPathName;		// 点云的全路径名
 		std::string strDirName;			// 点云文件目录名
 		std::string strFileName;		// 点云的文件名
-		bool bVisible;					// 点云在Viewer中是否课件
+		bool bVisible;					// 点云在Viewer中是否可见
 	}CloudStructure, *PtrCloudStructure;
 
 }
