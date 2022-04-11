@@ -116,6 +116,62 @@ void MainWindow::on_actionClear_triggered()
 	ViewerCloud(); 
 }
 
+void MainWindow::on_actionSave_triggered()
+{
+	QString strSaveName = QFileDialog::getSaveFileName(this, tr("Save point cloud"),
+		QString::fromLocal8Bit(m_cloud.strDirName.c_str()), tr("Point cloud data(*.pcd *.ply);;Allfile(*.*)"));
+	std::string strFileName = strSaveName.toStdString();
+	std::string strSubName = GetFileName(strFileName);
+
+	if (strSaveName.isEmpty())
+	{
+		return;
+	}
+
+	if (m_vctCloud.size() > 1)
+	{
+		SaveMultiCloud();
+		return;
+	}
+
+	int nStatus = -1;
+	if (strSaveName.endsWith(".pcd", Qt::CaseInsensitive))
+	{
+		nStatus = pcl::io::savePCDFile(strFileName, *(m_cloud.ptrCloud));
+	}
+	else if (strSaveName.endsWith(".ply", Qt::CaseInsensitive))
+	{
+		nStatus = pcl::io::savePLYFile(strFileName, *(m_cloud.ptrCloud));
+	}
+	
+	else //提示：无法保存为除了.ply .pcd以外的文件
+	{
+		QMessageBox::information(this, tr("File format error"),
+			tr("Can't save files except .ply .pcd"));
+		return;
+	}
+	//提示：后缀没问题，但是无法保存
+	if (nStatus != 0)
+	{
+		QMessageBox::critical(this, tr("Saving file error"),
+			tr("We can not save the file"));
+		return;
+	}
+
+	//输出窗口
+	ConsoleLog("Save", QString::fromLocal8Bit(strSubName.c_str()), strSaveName, "Single save");
+
+	setWindowTitle(strSaveName + " - EasyCloud");
+
+	QMessageBox::information(this, tr("save point cloud file"),
+		QString::fromLocal8Bit(("Save " + strSubName + " successfully!").c_str()));
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+	this->close();
+}
+
 void MainWindow::on_actionUp_triggered()
 {
 	if (!m_pCloud->empty())
@@ -384,4 +440,9 @@ void MainWindow::SetA(unsigned int a)
 	{
 		m_cloud.ptrCloud->points[i].a = a;
 	}
+}
+
+void MainWindow::SaveMultiCloud()
+{
+
 }

@@ -10,5 +10,7 @@
         <file>resource/images/right.png</file>
         <file>resource/images/up.png</file>
 		<file>resource/images/icon.png</file>
+		<file>resource/images/save.png</file>
+		<file>resource/images/exit.png</file>
     </qresource>
 </RCC>

@@ -164,6 +164,16 @@ private:
 	//				 
 	//*****************************************************
 	std::string GetFileName(std::string strFileName);
+	//*****************************************************
+	// Function:	 SaveMultiCloud
+	// FullName:	 MainWindow::SaveMultiCloud
+	// Description:	 保存多个点云
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void SaveMultiCloud();
 
 	Ui::MainWindow *ui;
 
@@ -210,6 +220,26 @@ public slots:
 	//				 
 	//*****************************************************
 	void on_actionClear_triggered();
+	//*****************************************************
+	// Function:	 on_actionSave_triggered
+	// FullName:	 MainWindow::on_actionSave_triggered
+	// Description:	 保存点云文件
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionSave_triggered();
+	//*****************************************************
+	// Function:	 on_actionExit_triggered
+	// FullName:	 MainWindow::on_actionExit_triggered
+	// Description:	 退出软件
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionExit_triggered();
 	//*****************************************************
 	// Function:	 on_actionUp_triggered
 	// FullName:	 MainWindow::on_actionUp_triggered
