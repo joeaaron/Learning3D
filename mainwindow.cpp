@@ -172,6 +172,74 @@ void MainWindow::on_actionExit_triggered()
 	this->close();
 }
 
+void MainWindow::on_actionCloudColor_triggered()
+{
+	QColor color = QColorDialog::getColor(Qt::white, this,
+		"Select color for point cloud");
+
+	if (color.isValid())
+	{
+		QList<QTreeWidgetItem*> itemList = ui->dataTree->selectedItems();
+		int nSelectedItemNum = ui->dataTree->selectedItems().size();
+
+		if (0 == nSelectedItemNum)
+		{
+			for (int i = 0; i != m_vctCloud.size(); i++) 
+			{
+				for (int j = 0; j != m_vctCloud[i].ptrCloud->points.size(); j++) 
+				{
+					m_vctCloud[i].ptrCloud->points[j].r = color.red();
+					m_vctCloud[i].ptrCloud->points[j].g = color.green();
+					m_vctCloud[i].ptrCloud->points[j].b = color.blue();
+				}
+			}
+			// 输出窗口
+			ConsoleLog("Change cloud color", "All point clouds", 
+				QString::number(color.red()) + " " + QString::number(color.green()) + " " + QString::number(color.blue()), 
+				"");
+		}
+		else 
+		{
+			for (int i = 0; i != nSelectedItemNum; i++) 
+			{
+				int nCloudId = ui->dataTree->indexOfTopLevelItem(itemList[i]);
+				for (int j = 0; j != m_vctCloud[nCloudId].ptrCloud->size(); j++)
+				{
+					m_vctCloud[nCloudId].ptrCloud->points[j].r = color.red();
+					m_vctCloud[nCloudId].ptrCloud->points[j].g = color.green();
+					m_vctCloud[nCloudId].ptrCloud->points[j].b = color.blue();
+				}
+			}
+			// 输出窗口
+			ConsoleLog("Change cloud color", "Point clouds selected", 
+				QString::number(color.red()) + " " + QString::number(color.green()) + " " + QString::number(color.blue()),
+				"");
+		}
+
+		// 更新显示
+		ViewerCloud();
+	}
+}
+
+void MainWindow::on_actionBGColor_triggered()
+{
+	QColor color = QColorDialog::getColor(Qt::white, this,
+		"Select color for background");
+
+	if (color.isValid())
+	{
+		viewer->setBackgroundColor(color.red() / 255.0,
+			color.green() / 255.0, color.blue() / 255.0);
+
+		// 输出窗口
+		ConsoleLog("Change bg color", "Background", 
+			QString::number(color.red()) + " " + QString::number(color.green()) + " " + QString::number(color.blue()),
+			"");
+		// 更新显示
+		ViewerCloud();
+	}
+}
+
 void MainWindow::on_actionUp_triggered()
 {
 	if (!m_pCloud->empty())

@@ -12,5 +12,7 @@
 		<file>resource/images/icon.png</file>
 		<file>resource/images/save.png</file>
 		<file>resource/images/exit.png</file>
+		<file>resource/images/cloudcolor.png</file>
+		<file>resource/images/bgcolor.png</file>
     </qresource>
 </RCC>

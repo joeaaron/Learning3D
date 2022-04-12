@@ -14,7 +14,8 @@
 
 // !QT
 #include <QMainWindow>
-#include <QFileDialog.h>
+#include <QFileDialog>
+#include <QColorDialog>
 #include <QTime>
 #include <QMessageBox>
 
@@ -240,6 +241,26 @@ public slots:
 	//				 
 	//*****************************************************
 	void on_actionExit_triggered();
+	//*****************************************************
+	// Function:	 on_actionCloudColor_triggered
+	// FullName:	 MainWindow::on_actionCloudColor_triggered
+	// Description:	 改变点云颜色
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionCloudColor_triggered();
+	//*****************************************************
+	// Function:	 on_actionBGColor_triggered
+	// FullName:	 MainWindow::on_actionBGColor_triggered
+	// Description:	 改变背景颜色
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionBGColor_triggered();
 	//*****************************************************
 	// Function:	 on_actionUp_triggered
 	// FullName:	 MainWindow::on_actionUp_triggered

@@ -47,6 +47,8 @@
     <property name="title">
      <string>Display</string>
     </property>
+    <addaction name="actionCloudColor"/>
+    <addaction name="actionBGColor"/>
    </widget>
    <widget class="QMenu" name="menuProcess">
     <property name="title">
@@ -71,6 +73,8 @@
    <addaction name="actionOpen"/>
    <addaction name="actionClear"/>
    <addaction name="separator"/>
+   <addaction name="actionCloudColor"/>
+   <addaction name="actionBGColor"/>
   </widget>
   <widget class="QToolBar" name="toolBar_2">
    <property name="windowTitle">
@@ -338,6 +342,24 @@
    </property>
    <property name="shortcut">
     <string>Esc</string>
+   </property>
+  </action>
+  <action name="actionCloudColor">
+   <property name="icon">
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/cloudcolor.png</normaloff>:/resource/images/cloudcolor.png</iconset>
+   </property>
+   <property name="text">
+    <string>CloudColor</string>
+   </property>
+  </action>
+  <action name="actionBGColor">
+   <property name="icon">
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/bgcolor.png</normaloff>:/resource/images/bgcolor.png</iconset>
+   </property>
+   <property name="text">
+    <string>BGColor</string>
    </property>
   </action>
  </widget>
