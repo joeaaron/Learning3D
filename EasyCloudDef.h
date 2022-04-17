@@ -26,7 +26,8 @@
 #include <pcl/io/pcd_io.h>
 #include <pcl/io/obj_io.h>
 #include <pcl/visualization/pcl_visualizer.h>	
-#include <pcl/filters/filter.h>
+//#include <pcl/filters/filter.h>
+#include <pcl/filters/voxel_grid.h>
 #include <pcl/point_cloud.h>	
 
 // !VTK

@@ -113,7 +113,7 @@ void MainWindow::on_actionClear_triggered()
 	//输出窗口
 	ConsoleLog("Clear", "All point clouds", "", "");
 	//更新显示
-	ViewerCloud(); 
+	ViewerCloud(m_vctCloud);
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -217,7 +217,7 @@ void MainWindow::on_actionCloudColor_triggered()
 		}
 
 		// 更新显示
-		ViewerCloud();
+		ViewerCloud(m_vctCloud);
 	}
 }
 
@@ -236,13 +236,13 @@ void MainWindow::on_actionBGColor_triggered()
 			QString::number(color.red()) + " " + QString::number(color.green()) + " " + QString::number(color.blue()),
 			"");
 		// 更新显示
-		ViewerCloud();
+		ViewerCloud(m_vctCloud);
 	}
 }
 
 void MainWindow::on_actionUp_triggered()
 {
-	if (!m_pCloud->empty())
+	if (!m_vctCloud.empty())
 	{
 		viewer->setCameraPosition(0.5*(m_PointMin.x + m_PointMax.x), 0.5*(m_PointMin.y + m_PointMax.y), m_PointMax.z + 5 * m_dMaxLen, 0.5*(m_PointMin.x + m_PointMax.x), 0.5*(m_PointMin.y + m_PointMax.y), m_PointMax.z, 0, 1, 0);
 		ui->qvtkWidget->update();
@@ -251,7 +251,7 @@ void MainWindow::on_actionUp_triggered()
 
 void MainWindow::on_actionBottom_triggered()
 {
-	if (!m_pCloud->empty())
+	if (!m_vctCloud.empty())
 	{
 		viewer->setCameraPosition(0.5*(m_PointMin.x + m_PointMax.x), 0.5*(m_PointMin.y + m_PointMax.y), m_PointMin.z - 5 * m_dMaxLen, 0.5*(m_PointMin.x + m_PointMax.x), 0.5*(m_PointMin.y + m_PointMax.y), m_PointMax.z, 0, 1, 0);
 		ui->qvtkWidget->update();
@@ -260,7 +260,7 @@ void MainWindow::on_actionBottom_triggered()
 
 void MainWindow::on_actionFront_triggered()
 {
-	if (!m_pCloud->empty())
+	if (!m_vctCloud.empty())
 	{
 		viewer->setCameraPosition(0.5*(m_PointMin.x + m_PointMax.x), m_PointMin.y - 5 * m_dMaxLen, 0.5*(m_PointMin.z + m_PointMax.z), 0.5*(m_PointMin.x + m_PointMax.x), m_PointMin.y, 0.5*(m_PointMin.z + m_PointMax.z), 0, 0, 1);
 		ui->qvtkWidget->update();
@@ -269,7 +269,7 @@ void MainWindow::on_actionFront_triggered()
 
 void MainWindow::on_actionBack_triggered()
 {
-	if (!m_pCloud->empty())
+	if (!m_vctCloud.empty())
 	{
 		viewer->setCameraPosition(0.5*(m_PointMin.x + m_PointMax.x), m_PointMax.y + 5 * m_dMaxLen, 0.5*(m_PointMin.z + m_PointMax.z), 0.5*(m_PointMin.x + m_PointMax.x), m_PointMin.y, 0.5*(m_PointMin.z + m_PointMax.z), 0, 0, 1);
 		ui->qvtkWidget->update();
@@ -278,7 +278,7 @@ void MainWindow::on_actionBack_triggered()
 
 void MainWindow::on_actionLeft_triggered()
 {
-	if (!m_pCloud->empty())
+	if (!m_vctCloud.empty())
 	{
 		viewer->setCameraPosition(m_PointMin.x - 5 * m_dMaxLen, 0.5*(m_PointMin.y + m_PointMax.y), 0.5*(m_PointMin.z + m_PointMax.z), m_PointMax.x, 0.5*(m_PointMin.y + m_PointMax.y), 0.5*(m_PointMin.z + m_PointMax.z), 0, 0, 1);
 		ui->qvtkWidget->update();
@@ -287,11 +287,84 @@ void MainWindow::on_actionLeft_triggered()
 
 void MainWindow::on_actionRight_triggered()
 {
-	if (!m_pCloud->empty())
+	if (!m_vctCloud.empty())
 	{
 		viewer->setCameraPosition(m_PointMax.x + 5 * m_dMaxLen, 0.5*(m_PointMin.y + m_PointMax.y), 0.5*(m_PointMin.z + m_PointMax.z), m_PointMax.x, 0.5*(m_PointMin.y + m_PointMax.y), 0.5*(m_PointMin.z + m_PointMax.z), 0, 0, 1);
 		ui->qvtkWidget->update();
 	}
+}
+
+void MainWindow::on_actionDownSample_triggered()
+{
+	if (!m_vctCloud.empty())
+	{
+		m_nPointsNum = 0;
+		
+		TimeStart();
+
+		for (int i = 0; i != m_vctCloud.size(); i++)
+		{
+			pcl::VoxelGrid<PointT> vg;
+			Cloud::Ptr ptrCloudFiltered(new Cloud);
+
+			vg.setInputCloud(m_vctCloud[i].ptrCloud);
+			vg.setLeafSize(0.01f, 0.01f, 0.01f);
+
+			vg.filter(*ptrCloudFiltered);
+
+			int nDownSamplePoints = ptrCloudFiltered->points.size();
+			m_nPointsNum += nDownSamplePoints;
+
+			m_vctCloud[i].ptrCloud = ptrCloudFiltered;
+		}
+		
+		QString timeDiff = TimeOff();
+
+		// 属性窗口
+		SetPropertyTable();
+		//输出窗口
+		ConsoleLog("DownSample", "All point clouds", "", "Time cost: " + timeDiff + " s, Points: " + QString::number(m_cloud.ptrCloud->points.size()));
+		//更新显示
+		ViewerCloud(m_vctCloud);
+	}
+}
+
+void MainWindow::itemSelected(QTreeWidgetItem* item, int count)
+{
+	count = ui->dataTree->indexOfTopLevelItem(item);  //获取item的行号
+
+	for (int i = 0; i != m_vctCloud.size(); i++)
+	{
+		viewer->updatePointCloud(m_vctCloud[i].ptrCloud, "cloud" + QString::number(i).toStdString());
+		viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, 1, "cloud" + QString::number(i).toStdString());
+	}
+
+	//提取当前点云的RGB,点云数量等信息
+	int nCloudSize = m_vctCloud[count].ptrCloud->points.size();
+	unsigned int cloud_r = m_vctCloud[count].ptrCloud->points[0].r;
+	unsigned int cloud_g = m_vctCloud[count].ptrCloud->points[0].g;
+	unsigned int cloud_b = m_vctCloud[count].ptrCloud->points[0].b;
+
+	bool bMultiColor = true;
+	if (m_vctCloud[count].ptrCloud->points.begin()->r == (m_vctCloud[count].ptrCloud->points.end() - 1)->r)			//判断点云单色多色的条件（不是很严谨）
+		bMultiColor = false;
+
+	ui->propertyTable->setItem(0, 1, new QTableWidgetItem(QString::number(m_vctCloud.size())));
+	ui->propertyTable->setItem(1, 1, new QTableWidgetItem(QString::number(nCloudSize)));
+	ui->propertyTable->setItem(2, 1, new QTableWidgetItem(QString::number(m_nPointsNum)));
+	ui->propertyTable->setItem(3, 1, new QTableWidgetItem(bMultiColor ? "Multi Color" : (QString::number(cloud_r) + " " + QString::number(cloud_g) + " " + QString::number(cloud_b))));
+
+	//选中item所对应的点云尺寸变大
+	QList<QTreeWidgetItem*> itemList = ui->dataTree->selectedItems();
+	int selected_item_count = ui->dataTree->selectedItems().size();
+	for (int i = 0; i != selected_item_count; i++) 
+	{
+		int cloud_id = ui->dataTree->indexOfTopLevelItem(itemList[i]);
+		viewer->setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE,
+			2, "cloud" + QString::number(cloud_id).toStdString());
+	}
+	//mycloud = mycloud_vec[count];
+	ui->qvtkWidget->update();
 }
 
 void MainWindow::Init()
@@ -386,12 +459,16 @@ void MainWindow::ConsoleLog(QString operation, QString subName, QString fileName
 	ui->consoleTable->scrollToBottom();						// 滑动自动滚到最底部
 }
 
-void MainWindow::ViewerCloud()
+void MainWindow::ViewerCloud(const std::vector<MyCloud::CloudStructure> vctCloud)
 {
-	for (int i = 0; i != m_vctCloud.size(); i++)
+	for (int i = 0; i != vctCloud.size(); i++)
 	{
-		viewer->updatePointCloud(m_vctCloud[i].ptrCloud, "cloud" + QString::number(i).toStdString());
+		viewer->updatePointCloud(vctCloud[i].ptrCloud, "cloud" + QString::number(i).toStdString());
+
+		pcl::getMinMax3D(*vctCloud[i].ptrCloud, m_PointMin, m_PointMax);
+		m_dMaxLen = GetMaxValue(m_PointMin, m_PointMax);
 	}
+
 	//viewer->resetCamera();
 	ui->qvtkWidget->update();
 }
@@ -403,6 +480,9 @@ void MainWindow::ViewerAddedCloud()
 		// 添加到窗口
 		viewer->addPointCloud(m_vctCloud[i].ptrCloud, "cloud" + QString::number(i).toStdString());
 		viewer->updatePointCloud(m_vctCloud[i].ptrCloud, "cloud" + QString::number(i).toStdString());
+
+		pcl::getMinMax3D(*m_vctCloud[i].ptrCloud, m_PointMin, m_PointMax);
+		m_dMaxLen = GetMaxValue(m_PointMin, m_PointMax);
 	}
 
 	//重设视角

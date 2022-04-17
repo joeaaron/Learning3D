@@ -18,6 +18,7 @@
 #include <QColorDialog>
 #include <QTime>
 #include <QMessageBox>
+#include <QTreeWidget>
 
 // !Own
 #include "EasyCloudDef.h"
@@ -79,12 +80,12 @@ private:
 	// Function:	 ViewerCloud
 	// FullName:	 MainWindow::ViewerCloud
 	// Description:	 显示点云
-	// Parameters:
+	// Parameters:	 const std::vector<MyCloud::CloudStructure> vctCloud
 	// Return value: 
 	// Remarks:		 
 	//				 
 	//*****************************************************
-	void ViewerCloud();
+	void ViewerCloud(const std::vector<MyCloud::CloudStructure> vctCloud);
 	//*****************************************************
 	// Function:	 ViewerAddedCloud
 	// FullName:	 MainWindow::ViewerAddedCloud
@@ -321,6 +322,27 @@ public slots:
 	//				 
 	//*****************************************************
 	void on_actionRight_triggered();
+	//*****************************************************
+	// Function:	 on_actionDownSample_triggered
+	// FullName:	 MainWindow::on_actionDownSample_triggered
+	// Description:	 下采样
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionDownSample_triggered();
+	//*****************************************************
+	// Function:	 itemSelected
+	// FullName:	 MainWindow::itemSelected
+	// Description:	 选中点云文件
+	// Parameters:   @ QTreeWidgetItem*
+	//			     @ int
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void itemSelected(QTreeWidgetItem*, int);
 };
 
 

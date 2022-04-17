@@ -47,13 +47,32 @@
     <property name="title">
      <string>Display</string>
     </property>
+    <widget class="QMenu" name="menuAngle_View">
+     <property name="title">
+      <string>Angle View</string>
+     </property>
+     <addaction name="actionUp"/>
+     <addaction name="actionBottom"/>
+     <addaction name="actionFront"/>
+     <addaction name="actionBack"/>
+     <addaction name="actionLeft"/>
+     <addaction name="actionRight"/>
+    </widget>
     <addaction name="actionCloudColor"/>
     <addaction name="actionBGColor"/>
+    <addaction name="menuAngle_View"/>
    </widget>
    <widget class="QMenu" name="menuProcess">
     <property name="title">
      <string>Process</string>
     </property>
+    <widget class="QMenu" name="menufilter">
+     <property name="title">
+      <string>filter</string>
+     </property>
+     <addaction name="actionDownSample"/>
+    </widget>
+    <addaction name="menufilter"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menuDisplay"/>
@@ -256,8 +275,8 @@
   </action>
   <action name="actionUp">
    <property name="icon">
-    <iconset>
-     <normaloff>:/PointCloudVision/resource/images/up.png</normaloff>:/PointCloudVision/resource/images/up.png</iconset>
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/up.png</normaloff>:/resource/images/up.png</iconset>
    </property>
    <property name="text">
     <string>Up</string>
@@ -265,8 +284,8 @@
   </action>
   <action name="actionBottom">
    <property name="icon">
-    <iconset>
-     <normaloff>:/PointCloudVision/resource/images/bottom.png</normaloff>:/PointCloudVision/resource/images/bottom.png</iconset>
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/bottom.png</normaloff>:/resource/images/bottom.png</iconset>
    </property>
    <property name="text">
     <string>Bottom</string>
@@ -274,8 +293,8 @@
   </action>
   <action name="actionFront">
    <property name="icon">
-    <iconset>
-     <normaloff>:/PointCloudVision/resource/images/front.png</normaloff>:/PointCloudVision/resource/images/front.png</iconset>
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/front.png</normaloff>:/resource/images/front.png</iconset>
    </property>
    <property name="text">
     <string>Front</string>
@@ -283,8 +302,8 @@
   </action>
   <action name="actionBack">
    <property name="icon">
-    <iconset>
-     <normaloff>:/PointCloudVision/resource/images/back.png</normaloff>:/PointCloudVision/resource/images/back.png</iconset>
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/back.png</normaloff>:/resource/images/back.png</iconset>
    </property>
    <property name="text">
     <string>Back</string>
@@ -292,8 +311,8 @@
   </action>
   <action name="actionLeft">
    <property name="icon">
-    <iconset>
-     <normaloff>:/PointCloudVision/resource/images/left.png</normaloff>:/PointCloudVision/resource/images/left.png</iconset>
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/left.png</normaloff>:/resource/images/left.png</iconset>
    </property>
    <property name="text">
     <string>Left</string>
@@ -301,8 +320,8 @@
   </action>
   <action name="actionRight">
    <property name="icon">
-    <iconset>
-     <normaloff>:/PointCloudVision/resource/images/right.png</normaloff>:/PointCloudVision/resource/images/right.png</iconset>
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/right.png</normaloff>:/resource/images/right.png</iconset>
    </property>
    <property name="text">
     <string>Right</string>
@@ -362,6 +381,11 @@
     <string>BGColor</string>
    </property>
   </action>
+  <action name="actionDownSample">
+   <property name="text">
+    <string>DownSample</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -374,8 +398,26 @@
  <resources>
   <include location="EasyCloud.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>dataTree</sender>
+   <signal>itemClicked(QTreeWidgetItem*,int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>itemSelected(QTreeWidgetItem*,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>155</x>
+     <y>160</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>387</x>
+     <y>-29</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
  <slots>
   <slot>OnFileOpen()</slot>
+  <slot>itemSelected(QTreeWidgetItem*,int)</slot>
  </slots>
 </ui>
