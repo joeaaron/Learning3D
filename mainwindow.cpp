@@ -323,7 +323,70 @@ void MainWindow::on_actionDownSample_triggered()
 		// 属性窗口
 		SetPropertyTable();
 		//输出窗口
-		ConsoleLog("DownSample", "All point clouds", "", "Time cost: " + timeDiff + " s, Points: " + QString::number(m_cloud.ptrCloud->points.size()));
+		ConsoleLog("DownSample", "All point clouds", "", "Time cost: " + timeDiff + " s, Points: " + QString::number(m_nPointsNum));
+		//更新显示
+		ViewerCloud(m_vctCloud);
+	}
+}
+
+void MainWindow::on_actionRansacSeg_triggered()
+{
+	if (!m_vctCloud.empty())
+	{
+		m_nPointsNum = 0;
+
+		TimeStart();
+
+		for (int i = 0; i != m_vctCloud.size(); i++)
+		{
+			pcl::SACSegmentation<PointT> seg;
+			pcl::PointIndices::Ptr inliers(new pcl::PointIndices);
+			pcl::ModelCoefficients::Ptr coefficients(new pcl::ModelCoefficients);
+			Cloud::Ptr ptrCloudPlane(new Cloud);
+			Cloud::Ptr ptrCloudObj(new Cloud);
+
+			seg.setOptimizeCoefficients(true);
+			seg.setModelType(pcl::SACMODEL_PLANE);
+			seg.setMethodType(pcl::SAC_RANSAC);
+			seg.setMaxIterations(100);
+			seg.setDistanceThreshold(0.02);
+			seg.setInputCloud(m_vctCloud[i].ptrCloud);
+			seg.segment(*inliers, *coefficients);
+
+			if (0 == inliers->indices.size())
+			{
+				std::cout << "Could not estimate a planar anymore." << std::endl;
+			}
+			else
+			{
+				pcl::ExtractIndices<PointT> extract;
+				extract.setInputCloud(m_vctCloud[i].ptrCloud);
+				extract.setIndices(inliers);
+				extract.setNegative(false);
+				extract.filter(*ptrCloudPlane);
+
+				pcl::PointXYZ min, max;
+				pcl::getMinMax3D(*ptrCloudPlane, m_PointMin, m_PointMax);
+				double dMinZ = m_PointMin.z;
+
+				int nRansacSegPoints = ptrCloudPlane->points.size();
+				m_nPointsNum += nRansacSegPoints;
+
+				//m_vctCloud[i].ptrCloud = ptrCloudPlane;
+
+				// filter plannar
+				extract.setNegative(true);
+				extract.filter(*ptrCloudObj);
+				m_vctCloud[i].ptrCloud = ptrCloudObj;
+			}
+		}
+
+		QString timeDiff = TimeOff();
+
+		// 属性窗口
+		SetPropertyTable();
+		//输出窗口
+		ConsoleLog("Ransac", "All point clouds", "", "Time cost: " + timeDiff + " s, Points: " + QString::number(m_nPointsNum));
 		//更新显示
 		ViewerCloud(m_vctCloud);
 	}

@@ -72,7 +72,14 @@
      </property>
      <addaction name="actionDownSample"/>
     </widget>
+    <widget class="QMenu" name="menusegmenation">
+     <property name="title">
+      <string>segmenation</string>
+     </property>
+     <addaction name="actionRansacSeg"/>
+    </widget>
     <addaction name="menufilter"/>
+    <addaction name="menusegmenation"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menuDisplay"/>
@@ -384,6 +391,11 @@
   <action name="actionDownSample">
    <property name="text">
     <string>DownSample</string>
+   </property>
+  </action>
+  <action name="actionRansacSeg">
+   <property name="text">
+    <string>RansacSeg</string>
    </property>
   </action>
  </widget>

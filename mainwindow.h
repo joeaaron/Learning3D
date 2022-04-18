@@ -242,6 +242,7 @@ public slots:
 	//				 
 	//*****************************************************
 	void on_actionExit_triggered();
+	/***** Slots of Display *****/
 	//*****************************************************
 	// Function:	 on_actionCloudColor_triggered
 	// FullName:	 MainWindow::on_actionCloudColor_triggered
@@ -322,6 +323,7 @@ public slots:
 	//				 
 	//*****************************************************
 	void on_actionRight_triggered();
+	/***** Slots of Process *****/
 	//*****************************************************
 	// Function:	 on_actionDownSample_triggered
 	// FullName:	 MainWindow::on_actionDownSample_triggered
@@ -332,6 +334,16 @@ public slots:
 	//				 
 	//*****************************************************
 	void on_actionDownSample_triggered();
+	//*****************************************************
+	// Function:	 on_actionRansacSeg_triggered
+	// FullName:	 MainWindow::on_actionRansacSeg_triggered
+	// Description:	 随机采样一致性分割
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionRansacSeg_triggered();
 	//*****************************************************
 	// Function:	 itemSelected
 	// FullName:	 MainWindow::itemSelected
