@@ -78,8 +78,15 @@
      </property>
      <addaction name="actionRansacSeg"/>
     </widget>
+    <widget class="QMenu" name="menucluster">
+     <property name="title">
+      <string>cluster</string>
+     </property>
+     <addaction name="actionDbScan"/>
+    </widget>
     <addaction name="menufilter"/>
     <addaction name="menusegmenation"/>
+    <addaction name="menucluster"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menuDisplay"/>
@@ -396,6 +403,11 @@
   <action name="actionRansacSeg">
    <property name="text">
     <string>RansacSeg</string>
+   </property>
+  </action>
+  <action name="actionDbScan">
+   <property name="text">
+    <string>DbScan</string>
    </property>
   </action>
  </widget>

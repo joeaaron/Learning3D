@@ -23,6 +23,10 @@
 // !Own
 #include "EasyCloudDef.h"
 
+#include "DBSCAN_simple.h"
+#include "DBSCAN_precomp.h"
+#include "DBSCAN_kdtree.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -323,7 +327,9 @@ public slots:
 	//				 
 	//*****************************************************
 	void on_actionRight_triggered();
-	/***** Slots of Process *****/
+
+	/****************** Slots of Process ******************/
+	
 	//*****************************************************
 	// Function:	 on_actionDownSample_triggered
 	// FullName:	 MainWindow::on_actionDownSample_triggered
@@ -344,6 +350,19 @@ public slots:
 	//				 
 	//*****************************************************
 	void on_actionRansacSeg_triggered();
+	//*****************************************************
+	// Function:	 on_actionDbScan_triggered
+	// FullName:	 MainWindow::on_actionDbScan_triggered
+	// Description:	 点云密度聚类
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionDbScan_triggered();
+
+	/****************** Slots of ToolBar ******************/
+
 	//*****************************************************
 	// Function:	 itemSelected
 	// FullName:	 MainWindow::itemSelected

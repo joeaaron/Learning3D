@@ -22,16 +22,17 @@
 // !PCL
 #include <pcl/common/common.h>
 #include <pcl/point_types.h>
+#include <pcl/point_cloud.h>	
 #include <pcl/io/ply_io.h>
 #include <pcl/io/pcd_io.h>
 #include <pcl/io/obj_io.h>
-#include <pcl/visualization/pcl_visualizer.h>	
-//#include <pcl/filters/filter.h>
+#include <pcl/visualization/pcl_visualizer.h>
+#include <pcl/visualization/cloud_viewer.h>
+#include <pcl/filters/filter.h>
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/extract_indices.h>
 #include <pcl/segmentation/sac_segmentation.h>
-#include <pcl/point_cloud.h>	
-
+#include <pcl/search/impl/kdtree.hpp>
 // !VTK
 #include <vtkRenderWindow.h>	
 #include <vtkAutoInit.h> 

@@ -315,7 +315,7 @@ void MainWindow::on_actionDownSample_triggered()
 			int nDownSamplePoints = ptrCloudFiltered->points.size();
 			m_nPointsNum += nDownSamplePoints;
 
-			m_vctCloud[i].ptrCloud = ptrCloudFiltered;
+			copyPointCloud(*ptrCloudFiltered, *m_vctCloud[i].ptrCloud);
 		}
 		
 		QString timeDiff = TimeOff();
@@ -377,7 +377,8 @@ void MainWindow::on_actionRansacSeg_triggered()
 				// filter plannar
 				extract.setNegative(true);
 				extract.filter(*ptrCloudObj);
-				m_vctCloud[i].ptrCloud = ptrCloudObj;
+			
+				copyPointCloud(*ptrCloudObj, *m_vctCloud[i].ptrCloud);
 			}
 		}
 
@@ -389,6 +390,65 @@ void MainWindow::on_actionRansacSeg_triggered()
 		ConsoleLog("Ransac", "All point clouds", "", "Time cost: " + timeDiff + " s, Points: " + QString::number(m_nPointsNum));
 		//更新显示
 		ViewerCloud(m_vctCloud);
+	}
+}
+
+void MainWindow::on_actionDbScan_triggered()
+{
+	if (!m_vctCloud.empty())
+	{
+		m_nPointsNum = 0;
+
+		TimeStart();
+
+		for (int i = 0; i != m_vctCloud.size(); i++)
+		{
+			// KdTree, for more information, please ref [How to use a KdTree to search](https://pcl.readthedocs.io/projects/tutorials/en/latest/kdtree_search.html#kdtree-search)
+			pcl::search::KdTree<PointT>::Ptr tree(new pcl::search::KdTree<PointT>);
+			tree->setInputCloud(m_vctCloud[i].ptrCloud);
+
+			std::vector<pcl::PointIndices> clusterIndices;
+
+			DBSCANKdtreeCluster<PointT> ec;
+			ec.setCorePointMinPts(20);
+
+			ec.setClusterTolerance(0.05);
+			ec.setMinClusterSize(100);
+			ec.setMaxClusterSize(25000);
+			ec.setSearchMethod(tree);
+			ec.setInputCloud(m_vctCloud[i].ptrCloud);
+			ec.extract(clusterIndices);
+
+			pcl::PointCloud<pcl::PointXYZI>::Ptr cloudClustered(new pcl::PointCloud<pcl::PointXYZI>);
+			int j = 0;
+			// visualization, use indensity to show different color for each cluster.
+			for (std::vector<pcl::PointIndices>::const_iterator it = clusterIndices.begin(); it != clusterIndices.end(); it++, j++)
+			{
+				for (std::vector<int>::const_iterator pit = it->indices.begin(); pit != it->indices.end(); ++pit)
+				{
+					pcl::PointXYZI tmp;
+					tmp.x = m_vctCloud[i].ptrCloud->points[*pit].x;
+					tmp.y = m_vctCloud[i].ptrCloud->points[*pit].y;
+					tmp.z = m_vctCloud[i].ptrCloud->points[*pit].z;
+					tmp.intensity = j % 8;
+					cloudClustered->points.push_back(tmp);
+				}
+			}
+			int nClusterPoints = cloudClustered->points.size();
+			m_nPointsNum += nClusterPoints;
+
+			cloudClustered->width = nClusterPoints;
+			cloudClustered->height = 1;
+			//copyPointCloud(*cloudClustered, *m_vctCloud[i].ptrCloudI);
+
+		}
+
+		QString timeDiff = TimeOff();
+
+		// 属性窗口
+		SetPropertyTable();
+		//输出窗口
+		ConsoleLog("DBSCAN", "All point clouds", "", "Time cost: " + timeDiff + " s, Points: " + QString::number(m_nPointsNum));
 	}
 }
 
@@ -466,6 +526,11 @@ void MainWindow::Init()
 	ConsoleLog("Software start", "EasyCloud", "Welcome to use EasyCloud", "Z");
 	// 设置背景颜色为 dark
 	viewer->setBackgroundColor(30 / 255.0, 30 / 255.0, 30 / 255.0);
+	//添加坐标系
+	/*int v1(0);
+	viewer->createViewPort(0.0, 0.0, 0.5, 1.0, v1);*/
+
+	//viewer->addCoordinateSystem(0.5);
 }
 
 void MainWindow::SetPropertyTable()
@@ -526,12 +591,16 @@ void MainWindow::ViewerCloud(const std::vector<MyCloud::CloudStructure> vctCloud
 {
 	for (int i = 0; i != vctCloud.size(); i++)
 	{
+		if (vctCloud[i].ptrCloud == nullptr)
+		{
+			return;
+		}
 		viewer->updatePointCloud(vctCloud[i].ptrCloud, "cloud" + QString::number(i).toStdString());
 
 		pcl::getMinMax3D(*vctCloud[i].ptrCloud, m_PointMin, m_PointMax);
 		m_dMaxLen = GetMaxValue(m_PointMin, m_PointMax);
 	}
-
+	
 	//viewer->resetCamera();
 	ui->qvtkWidget->update();
 }
