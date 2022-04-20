@@ -32,7 +32,9 @@
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/extract_indices.h>
 #include <pcl/segmentation/sac_segmentation.h>
-#include <pcl/search/impl/kdtree.hpp>
+#include <pcl/search/kdtree.h>
+#include <pcl/features/normal_3d.h>
+#include <pcl/surface/gp3.h>
 // !VTK
 #include <vtkRenderWindow.h>	
 #include <vtkAutoInit.h> 
@@ -52,7 +54,6 @@ namespace MyCloud
 		std::string strFileName;		// 点云的文件名
 		bool bVisible;					// 点云在Viewer中是否可见
 	}CloudStructure, *PtrCloudStructure;
-
 }
 
 

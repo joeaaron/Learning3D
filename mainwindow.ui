@@ -84,9 +84,16 @@
      </property>
      <addaction name="actionDbScan"/>
     </widget>
+    <widget class="QMenu" name="menureconstruction">
+     <property name="title">
+      <string>reconstruction</string>
+     </property>
+     <addaction name="actionMeshSurface"/>
+    </widget>
     <addaction name="menufilter"/>
     <addaction name="menusegmenation"/>
     <addaction name="menucluster"/>
+    <addaction name="menureconstruction"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menuDisplay"/>
@@ -408,6 +415,15 @@
   <action name="actionDbScan">
    <property name="text">
     <string>DbScan</string>
+   </property>
+  </action>
+  <action name="actionMeshSurface">
+   <property name="icon">
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/mesh.png</normaloff>:/resource/images/mesh.png</iconset>
+   </property>
+   <property name="text">
+    <string>MeshSurface</string>
    </property>
   </action>
  </widget>

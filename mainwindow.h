@@ -205,6 +205,7 @@ private:
 
 	QTime time;
 
+	pcl::PointCloud<pcl::PointXYZ>::Ptr ptrCloudXYZ;
 public slots:
 	//*****************************************************
 	// Function:	 on_actionOpen_triggered
@@ -360,6 +361,16 @@ public slots:
 	//				 
 	//*****************************************************
 	void on_actionDbScan_triggered();
+	//*****************************************************
+	// Function:	 on_actionMeshSurface_triggered
+	// FullName:	 MainWindow::on_actionMeshSurface_triggered
+	// Description:	 表面重建
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionMeshSurface_triggered();
 
 	/****************** Slots of ToolBar ******************/
 

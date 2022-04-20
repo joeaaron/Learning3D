@@ -1,6 +1,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+//随机产生颜色
+int *rand_rgb()
+{
+	int *rgb = new int[3];
+	rgb[0] = rand() % 255;
+	rgb[1] = rand() % 255;
+	rgb[2] = rand() % 255;
+	return rgb;
+}
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -419,27 +429,28 @@ void MainWindow::on_actionDbScan_triggered()
 			ec.setInputCloud(m_vctCloud[i].ptrCloud);
 			ec.extract(clusterIndices);
 
-			pcl::PointCloud<pcl::PointXYZI>::Ptr cloudClustered(new pcl::PointCloud<pcl::PointXYZI>);
+			Cloud::Ptr cloudClustered(new Cloud);
 			int j = 0;
 			// visualization, use indensity to show different color for each cluster.
 			for (std::vector<pcl::PointIndices>::const_iterator it = clusterIndices.begin(); it != clusterIndices.end(); it++, j++)
 			{
 				for (std::vector<int>::const_iterator pit = it->indices.begin(); pit != it->indices.end(); ++pit)
 				{
-					pcl::PointXYZI tmp;
+					PointT tmp;
 					tmp.x = m_vctCloud[i].ptrCloud->points[*pit].x;
 					tmp.y = m_vctCloud[i].ptrCloud->points[*pit].y;
 					tmp.z = m_vctCloud[i].ptrCloud->points[*pit].z;
-					tmp.intensity = j % 8;
+					//tmp.intensity = j % 8;
 					cloudClustered->points.push_back(tmp);
 				}
 			}
+			
 			int nClusterPoints = cloudClustered->points.size();
 			m_nPointsNum += nClusterPoints;
 
-			cloudClustered->width = nClusterPoints;
-			cloudClustered->height = 1;
-			//copyPointCloud(*cloudClustered, *m_vctCloud[i].ptrCloudI);
+			//cloudClustered->width = nClusterPoints;
+			//cloudClustered->height = 1;
+			//copyPointCloud(*cloudClustered, *m_vctCloud[i].ptrCloud);
 
 		}
 
@@ -449,6 +460,97 @@ void MainWindow::on_actionDbScan_triggered()
 		SetPropertyTable();
 		//输出窗口
 		ConsoleLog("DBSCAN", "All point clouds", "", "Time cost: " + timeDiff + " s, Points: " + QString::number(m_nPointsNum));
+	}
+}
+
+void MainWindow::on_actionMeshSurface_triggered()
+{
+	if (!m_vctCloud.empty())
+	{
+		TimeStart();
+
+		pcl::PointXYZ point;
+		ptrCloudXYZ.reset(new pcl::PointCloud<pcl::PointXYZ>);
+
+		for (size_t i = 0; i != m_cloud.ptrCloud->size(); i++)
+		{
+			point.x = m_cloud.ptrCloud->points[i].x;
+			point.y = m_cloud.ptrCloud->points[i].y;
+			point.z = m_cloud.ptrCloud->points[i].z;
+			ptrCloudXYZ->push_back(point);
+		}
+
+		if (!ptrCloudXYZ)
+		{
+			return;
+		}
+
+		/****** 法向估计模块 ******/
+		// 创建法线估计对象 n
+		pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> n;
+		// 创建法向数据指针 normals
+		pcl::PointCloud<pcl::Normal>::Ptr normals(new pcl::PointCloud<pcl::Normal>);
+		// 创建 kdtree 用于法向计算时近邻搜索
+		pcl::search::KdTree<pcl::PointXYZ>::Ptr tree(new pcl::search::KdTree<pcl::PointXYZ>);
+		tree->setInputCloud(ptrCloudXYZ);	 // 为 kdtree 输入点云
+		n.setInputCloud(ptrCloudXYZ);		 // 为法向估计对象输入点云
+		n.setSearchMethod(tree);			 // 设置法向估计时所采取的搜索方式为kdtree
+		n.setKSearch(20);					 // 设置法向估计时，k近邻搜索的点数
+		n.compute(*normals);				 // 进行法向估计
+
+		QMessageBox::information(this, "information", "Normal estimation finished");
+
+		/****** 点云数据与法向数据拼接 ******/
+		// 创建同时包含点和法线的数据结构指针
+		pcl::PointCloud<pcl::PointNormal>::Ptr ptrCloudWithNormal(new  pcl::PointCloud<pcl::PointNormal>);
+		// 将已获得的点数据和法向数据拼接
+		pcl::concatenateFields(*ptrCloudXYZ, *normals, *ptrCloudWithNormal);
+
+		//创建另一个kdtree用于重建
+		pcl::search::KdTree<pcl::PointNormal>::Ptr tree2(new pcl::search::KdTree<pcl::PointNormal>);
+		//为kdtree输入点云数据，该点云数据类型为点和法向
+		tree2->setInputCloud(ptrCloudWithNormal);
+
+		/****** 曲面重建模块 ******/
+		// 创建贪婪三角形投影重建对象
+		pcl::GreedyProjectionTriangulation<pcl::PointNormal> gp3;
+		// 创建多边形网格对象，用来存储重建结果
+		pcl::PolygonMesh triangles;
+		// 设置参数
+		gp3.setSearchRadius(25);				// 设置连接点之间最大距离，用于确定k近邻的球半径
+		gp3.setMu(2.5);							// 设置最近邻距离的乘子，以得到每个点的最终搜索半径
+		gp3.setMaximumNearestNeighbors(100);	// 设置搜索的最近邻点的最大数量
+		gp3.setMaximumSurfaceAngle(M_PI / 2);	// 45度 最大平面角
+		gp3.setMinimumAngle(M_PI / 18);			// 10度 每个三角的最大角度？
+		gp3.setMaximumAngle(2 * M_PI / 3);		// 120度
+		gp3.setNormalConsistency(false);		// 若法向量一致，设为true
+		// 设置点云数据和搜索方式
+		gp3.setInputCloud(ptrCloudWithNormal);
+		gp3.setSearchMethod(tree2);
+		// 开始重建
+		gp3.reconstruct(triangles);
+		QMessageBox::information(this, "informaiton", "Reconstruction finished");
+
+		QString timeDiff = TimeOff();
+
+		/****** 图形显示模块 ******/
+		QMessageBox::information(this, "informaiton", "Start to show");
+		viewer->addPolygonMesh(triangles, "my"); //设置要显示的网格对象
+		//设置网格模型显示模式
+		viewer->setRepresentationToSurfaceForAllActors(); //网格模型以面片形式显示
+		//viewer->setRepresentationToPointsForAllActors(); //网格模型以点形式显示
+		//viewer->setRepresentationToWireframeForAllActors(); //网格模型以线框图模式显示
+
+		// 输出窗口
+		ConsoleLog("Convert surface", "All point clouds", "", "Time cost: " + timeDiff + " s, Points: " + QString::number(m_nPointsNum));
+
+		viewer->removeAllShapes();
+		while (!viewer->wasStopped())
+		{
+			viewer->spinOnce(100);
+			//boost::this_thread::sleep(boost::posix_time::microseconds(100000));
+		}
+		return;
 	}
 }
 
