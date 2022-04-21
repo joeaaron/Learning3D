@@ -364,14 +364,23 @@ public slots:
 	//*****************************************************
 	// Function:	 on_actionMeshSurface_triggered
 	// FullName:	 MainWindow::on_actionMeshSurface_triggered
-	// Description:	 表面重建
+	// Description:	 以面片形式显示重建
 	// Parameters:
 	// Return value: 
 	// Remarks:		 
 	//				 
 	//*****************************************************
 	void on_actionMeshSurface_triggered();
-
+	//*****************************************************
+	// Function:	 on_actionWireFrame_triggered
+	// FullName:	 MainWindow::on_actionWireFrame_triggered
+	// Description:	 以线框图模式显示重建
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionWireFrame_triggered();
 	/****************** Slots of ToolBar ******************/
 
 	//*****************************************************

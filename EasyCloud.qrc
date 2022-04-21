@@ -15,5 +15,6 @@
 		<file>resource/images/cloudcolor.png</file>
 		<file>resource/images/bgcolor.png</file>
 		<file>resource/images/mesh.png</file>
+		<file>resource/images/frame.png</file>
     </qresource>
 </RCC>

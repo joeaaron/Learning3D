@@ -89,6 +89,7 @@
       <string>reconstruction</string>
      </property>
      <addaction name="actionMeshSurface"/>
+     <addaction name="actionWireFrame"/>
     </widget>
     <addaction name="menufilter"/>
     <addaction name="menusegmenation"/>
@@ -424,6 +425,15 @@
    </property>
    <property name="text">
     <string>MeshSurface</string>
+   </property>
+  </action>
+  <action name="actionWireFrame">
+   <property name="icon">
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/frame.png</normaloff>:/resource/images/frame.png</iconset>
+   </property>
+   <property name="text">
+    <string>WireFrame</string>
    </property>
   </action>
  </widget>
