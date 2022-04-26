@@ -23,6 +23,7 @@
 // !Own
 #include "EasyCloudDef.h"
 #include "AboutWin.h"
+#include "filter.h"
 
 #include "DBSCAN_simple.h"
 #include "DBSCAN_precomp.h"
@@ -207,6 +208,9 @@ private:
 	QTime time;
 
 	pcl::PointCloud<pcl::PointXYZ>::Ptr ptrCloudXYZ;
+
+	Filter* pFilter;
+
 public slots:
 	//*****************************************************
 	// Function:	 on_actionOpen_triggered
@@ -332,6 +336,16 @@ public slots:
 
 	/****************** Slots of Process ******************/
 	
+	//*****************************************************
+	// Function:	 on_actionSORFilter_triggered
+	// FullName:	 MainWindow::on_actionSORFilter_triggered
+	// Description:	 点云去噪
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionSORFilter_triggered();
 	//*****************************************************
 	// Function:	 on_actionDownSample_triggered
 	// FullName:	 MainWindow::on_actionDownSample_triggered

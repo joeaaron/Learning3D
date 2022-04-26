@@ -71,6 +71,7 @@
       <string>filter</string>
      </property>
      <addaction name="actionDownSample"/>
+     <addaction name="actionSORFilter"/>
     </widget>
     <widget class="QMenu" name="menusegmenation">
      <property name="title">
@@ -460,6 +461,11 @@
    </property>
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionSORFilter">
+   <property name="text">
+    <string>SORFilter</string>
    </property>
   </action>
  </widget>

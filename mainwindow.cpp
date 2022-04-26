@@ -18,12 +18,25 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+	pFilter = new Filter();
+	
 	Init();
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+	if (pFilter != nullptr)
+	{
+		pFilter = nullptr;
+		delete pFilter;
+	}
+
+	if (ui != nullptr)
+	{
+		ui = nullptr;
+		delete ui;
+	}
+
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -302,6 +315,16 @@ void MainWindow::on_actionRight_triggered()
 		viewer->setCameraPosition(m_PointMax.x + 5 * m_dMaxLen, 0.5*(m_PointMin.y + m_PointMax.y), 0.5*(m_PointMin.z + m_PointMax.z), m_PointMax.x, 0.5*(m_PointMin.y + m_PointMax.y), 0.5*(m_PointMin.z + m_PointMax.z), 0, 0, 1);
 		ui->qvtkWidget->update();
 	}
+}
+
+void MainWindow::on_actionSORFilter_triggered()
+{
+	QPoint point = ui->qvtkWidget->mapToGlobal(QPoint(ui->qvtkWidget->x(), ui->qvtkWidget->y()));
+	double dx = point.x();
+	double dy = point.y();
+
+	pFilter->move(dx, dy);
+	pFilter->show();
 }
 
 void MainWindow::on_actionDownSample_triggered()
@@ -647,10 +670,10 @@ void MainWindow::on_actionWireFrame_triggered()
 
 void MainWindow::on_actionAbout_triggered()
 {
-	AboutWin* aboutWin = new AboutWin(this);
+	AboutWin* pAboutWin = new AboutWin(this);
 
-	aboutWin->setModal(true);
-	aboutWin->show();
+	pAboutWin->setModal(true);
+	pAboutWin->show();
 
 	// Êä³ö´°¿Ú
 	ConsoleLog("About", "Z", "http://nightn.com", "Welcome to my blog!");
