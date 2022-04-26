@@ -22,6 +22,7 @@
 
 // !Own
 #include "EasyCloudDef.h"
+#include "AboutWin.h"
 
 #include "DBSCAN_simple.h"
 #include "DBSCAN_precomp.h"
@@ -381,6 +382,21 @@ public slots:
 	//				 
 	//*****************************************************
 	void on_actionWireFrame_triggered();
+
+	/****************** Slots of About ******************/
+
+	//*****************************************************
+	// Function:	 on_actionAbout_triggered
+	// FullName:	 MainWindow::on_actionAbout_triggered
+	// Description:	 关于
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionAbout_triggered();
+
+
 	/****************** Slots of ToolBar ******************/
 
 	//*****************************************************

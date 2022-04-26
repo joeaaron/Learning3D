@@ -645,6 +645,17 @@ void MainWindow::on_actionWireFrame_triggered()
 	}
 }
 
+void MainWindow::on_actionAbout_triggered()
+{
+	AboutWin* aboutWin = new AboutWin(this);
+
+	aboutWin->setModal(true);
+	aboutWin->show();
+
+	// 输出窗口
+	ConsoleLog("About", "Z", "http://nightn.com", "Welcome to my blog!");
+}
+
 void MainWindow::itemSelected(QTreeWidgetItem* item, int count)
 {
 	count = ui->dataTree->indexOfTopLevelItem(item);  //获取item的行号

@@ -96,9 +96,17 @@
     <addaction name="menucluster"/>
     <addaction name="menureconstruction"/>
    </widget>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionHelp"/>
+    <addaction name="actionAbout"/>
+   </widget>
    <addaction name="menu"/>
    <addaction name="menuDisplay"/>
    <addaction name="menuProcess"/>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <widget class="QToolBar" name="toolBar">
@@ -434,6 +442,24 @@
    </property>
    <property name="text">
     <string>WireFrame</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="icon">
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/help.png</normaloff>:/resource/images/help.png</iconset>
+   </property>
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/about.png</normaloff>:/resource/images/about.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>

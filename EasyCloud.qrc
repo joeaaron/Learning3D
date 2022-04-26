@@ -16,5 +16,7 @@
 		<file>resource/images/bgcolor.png</file>
 		<file>resource/images/mesh.png</file>
 		<file>resource/images/frame.png</file>
+		<file>resource/images/help.png</file>
+		<file>resource/images/about.png</file>
     </qresource>
 </RCC>
