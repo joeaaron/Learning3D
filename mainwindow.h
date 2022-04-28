@@ -424,6 +424,8 @@ public slots:
 	//				 
 	//*****************************************************
 	void itemSelected(QTreeWidgetItem*, int);
+
+	
 };
 
 

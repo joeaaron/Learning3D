@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+const int WIDGET_INT_SPACE = 10;
 //随机产生颜色
 int *rand_rgb()
 {
@@ -323,7 +324,7 @@ void MainWindow::on_actionSORFilter_triggered()
 	double dx = point.x();
 	double dy = point.y();
 
-	pFilter->move(dx, dy);
+	pFilter->move(dx + WIDGET_INT_SPACE, dy + WIDGET_INT_SPACE);
 	pFilter->show();
 }
 

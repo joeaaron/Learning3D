@@ -57,3 +57,65 @@ namespace MyCloud
 }
 
 
+
+class MyDoubleValidator : public QDoubleValidator
+{
+public:
+	explicit MyDoubleValidator(QObject * parent = 0)
+		:QDoubleValidator(parent)
+	{
+
+	}
+
+	MyDoubleValidator(double bottom, double top, int decimals, QObject *parent = 0) :QDoubleValidator(bottom, top, decimals, parent)
+	{
+	}
+
+	~MyDoubleValidator()
+	{
+
+	}
+
+	virtual State validate(QString &str, int &i) const
+	{
+		if (str.isEmpty())
+		{
+			return QValidator::Intermediate;
+		}
+		//int a = 1;
+		bool cOK = false;
+		double val = str.toDouble(&cOK);
+
+		if (!cOK)
+		{
+			return QValidator::Invalid;
+		}
+
+		int dotPos = str.indexOf(".");
+		if (dotPos > 0)
+		{
+			if (str.right(str.length() - dotPos - 1).length() > decimals())
+			{
+				return QValidator::Invalid;
+			}
+		}
+		if (val< top() && val > bottom())
+		{
+			return QValidator::Acceptable;
+		}
+
+		return QValidator::Invalid;
+	}
+
+	virtual void fixup(QString &s) const
+	{
+		if (s.toDouble() < bottom())
+		{
+			s = QString::number(bottom());
+		}
+		else if (s.toDouble() > top())
+		{
+			s = QString::number(top());
+		}
+	}
+};
