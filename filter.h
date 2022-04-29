@@ -14,11 +14,21 @@ public:
 
 	~Filter();
 
+public:
+	double GetMeanKVal() const;
+	double GetStdVal() const;
+
 private:
 	void initTitleBar();
 
 	Ui::Form ui;
 	MyTitleBar* m_titleBar;
+
+	double m_dMeanK;		// 邻域点数
+	double m_dStdDev;		// 标准偏差
+signals:
+	// 按钮触发的信号;
+	void runBtnClicked();
 
 public slots:
 	//*****************************************************
@@ -42,6 +52,17 @@ public slots:
 	//				 
 	//*****************************************************
 	void meanKChanged(QString);
+
+	//*****************************************************
+	// Function:	 stdDevChanged
+	// FullName:	 Filter::stdDevChanged
+	// Description:	 标准偏差修改
+	// Parameters:   @ QString
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void stdDevChanged(QString);
 
 	//*****************************************************
 	// Function:	 onButtonCloseClicked

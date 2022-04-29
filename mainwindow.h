@@ -209,7 +209,7 @@ private:
 
 	pcl::PointCloud<pcl::PointXYZ>::Ptr ptrCloudXYZ;
 
-	Filter* pFilter;
+	Filter m_cloudFilter;
 
 public slots:
 	//*****************************************************
@@ -425,6 +425,17 @@ public slots:
 	//*****************************************************
 	void itemSelected(QTreeWidgetItem*, int);
 
+	//*****************************************************
+	// Function:	 StatisticalFilter
+	// FullName:	 MainWindow::StatisticalFilter
+	// Description:	 统计滤波
+	// Parameters:   @ QTreeWidgetItem*
+	//			     @ int
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void StatisticalFilter();
 	
 };
 

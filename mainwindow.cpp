@@ -18,20 +18,12 @@ MainWindow::MainWindow(QWidget *parent) :
 	m_nPointsNum(0)
 {
     ui->setupUi(this);
-
-	pFilter = new Filter();
 	
 	Init();
 }
 
 MainWindow::~MainWindow()
 {
-	if (pFilter != nullptr)
-	{
-		pFilter = nullptr;
-		delete pFilter;
-	}
-
 	if (ui != nullptr)
 	{
 		ui = nullptr;
@@ -324,8 +316,10 @@ void MainWindow::on_actionSORFilter_triggered()
 	double dx = point.x();
 	double dy = point.y();
 
-	pFilter->move(dx + WIDGET_INT_SPACE, dy + WIDGET_INT_SPACE);
-	pFilter->show();
+	m_cloudFilter.move(dx + WIDGET_INT_SPACE, dy + WIDGET_INT_SPACE);
+	m_cloudFilter.show();
+
+	connect(&m_cloudFilter, SIGNAL(runBtnClicked()), this, SLOT(StatisticalFilter()));
 }
 
 void MainWindow::on_actionDownSample_triggered()
@@ -953,4 +947,43 @@ void MainWindow::SetA(unsigned int a)
 void MainWindow::SaveMultiCloud()
 {
 
+}
+
+void MainWindow::StatisticalFilter()
+{
+	if (!m_vctCloud.empty())
+	{
+		m_nPointsNum = 0;
+
+		TimeStart();
+
+		double dMeanK = m_cloudFilter.GetMeanKVal();
+		double dStdDev = m_cloudFilter.GetStdVal();
+
+		for (int i = 0; i != m_vctCloud.size(); i++)
+		{
+			pcl::StatisticalOutlierRemoval<PointT> sor;
+			Cloud::Ptr ptrCloudFiltered(new Cloud);
+
+			sor.setInputCloud(m_vctCloud[i].ptrCloud);
+			sor.setMeanK(dMeanK);
+			sor.setStddevMulThresh(dStdDev);
+
+			sor.filter(*ptrCloudFiltered);
+
+			int nDownSamplePoints = ptrCloudFiltered->points.size();
+			m_nPointsNum += nDownSamplePoints;
+
+			copyPointCloud(*ptrCloudFiltered, *m_vctCloud[i].ptrCloud);
+		}
+
+		QString timeDiff = TimeOff();
+
+		// 属性窗口
+		SetPropertyTable();
+		//输出窗口
+		ConsoleLog("StatisticalFilter", "All point clouds", "", "Time cost: " + timeDiff + " s, Points: " + QString::number(m_nPointsNum));
+		//更新显示
+		ViewerCloud(m_vctCloud);
+	}
 }

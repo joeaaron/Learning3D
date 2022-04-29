@@ -64,6 +64,9 @@
        <height>24</height>
       </rect>
      </property>
+     <property name="text">
+      <string>1</string>
+     </property>
     </widget>
     <widget class="QLineEdit" name="meanK">
      <property name="geometry">
@@ -73,6 +76,9 @@
        <width>121</width>
        <height>24</height>
       </rect>
+     </property>
+     <property name="text">
+      <string>30</string>
      </property>
     </widget>
    </widget>
@@ -163,9 +169,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>stddev</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>Form</receiver>
+   <slot>stdDevChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>221</x>
+     <y>159</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>302</x>
+     <y>201</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>filterMethodChanged(int)</slot>
   <slot>meanKChanged(QString)</slot>
+  <slot>stdDevChanged(QString)</slot>
  </slots>
 </ui>

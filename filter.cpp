@@ -1,7 +1,8 @@
 #include "filter.h"
-#include <windows.h>
+#include "mainwindow.h"
 
-Filter::Filter(QWidget* parents)
+Filter::Filter(QWidget* parents) :
+	m_titleBar(nullptr)
 {
 	ui.setupUi(this);
 
@@ -10,10 +11,20 @@ Filter::Filter(QWidget* parents)
 	//setAttribute(Qt::WA_TranslucentBackground);
 	// 初始化标题栏;
 	initTitleBar();
+
+	// 初始化邻域点数和标准偏差
+	m_dMeanK = ui.meanK->text().toDouble();
+	m_dStdDev = ui.stddev->text().toDouble();
 };
 
 Filter::~Filter()
 {
+	if (m_titleBar != nullptr)
+	{
+		m_titleBar = nullptr;
+		delete m_titleBar;
+	}
+
 }
 
 void Filter::filterMethodChanged(int nIdx)
@@ -46,6 +57,24 @@ void Filter::meanKChanged(QString strMeanK)
 
 	ui.meanK->setValidator(v);
 	ui.meanK->setText(strMeanK);
+
+	m_dMeanK = strMeanK.toDouble();
+}
+
+void Filter::stdDevChanged(QString strStdDev)
+{
+	if (strStdDev.isEmpty())
+	{
+		return;
+	}
+
+	QDoubleValidator* v = new QDoubleValidator(0, 9999, 3, this);  //[0,9999]小数点后三位
+	v->setNotation(QDoubleValidator::StandardNotation);
+
+	ui.stddev->setValidator(v);
+	ui.stddev->setText(strStdDev);
+
+	m_dStdDev = strStdDev.toDouble();
 }
 
 void Filter::initTitleBar()
@@ -62,7 +91,7 @@ void Filter::initTitleBar()
 
 void Filter::onButtonRunClicked()
 {
-	std::cout << "执行滤波";
+	emit runBtnClicked();
 }
 
 void Filter::onButtonCloseClicked()
@@ -70,3 +99,12 @@ void Filter::onButtonCloseClicked()
 	close();
 }
 
+double Filter::GetMeanKVal() const
+{
+	return(m_dMeanK);
+}
+
+double Filter::GetStdVal() const
+{
+	return(m_dStdDev);
+}
