@@ -760,6 +760,9 @@ void MainWindow::SetPropertyTable()
 	QStringList header;
 	header << "Property" << "Value";
 
+	QHeaderView* headerView = ui->propertyTable->horizontalHeader();
+	headerView->setDefaultAlignment(Qt::AlignLeft);
+
 	ui->propertyTable->setHorizontalHeaderLabels(header);
 	ui->propertyTable->setItem(0, 0, new QTableWidgetItem("Clouds"));
 	ui->propertyTable->setItem(1, 0, new QTableWidgetItem("Points"));
@@ -777,13 +780,20 @@ void MainWindow::SetConsoleTable() {
 	QStringList header;
 	header << "Time" << "Operation" << "Operation object" << "Details" << "Note";
 
-	ui->consoleTable->setHorizontalHeaderLabels(header);
-	ui->consoleTable->setColumnWidth(0, 150);
-	ui->consoleTable->setColumnWidth(1, 200);
-	ui->consoleTable->setColumnWidth(2, 200);
-	ui->consoleTable->setColumnWidth(3, 300);
+	QHeaderView* headerView = ui->consoleTable->horizontalHeader();
+	headerView->setDefaultAlignment(Qt::AlignLeft);
+	headerView->setSectionResizeMode(QHeaderView::Stretch);
 
-	//ui.consoleTable->setEditTriggers(QAbstractItemView::NoEditTriggers); //设置不可编辑
+	ui->consoleTable->setHorizontalHeaderLabels(header);
+	
+	int nWidth = ui->consoleTable->width();
+	ui->consoleTable->setColumnWidth(0, nWidth * 0.15);
+	ui->consoleTable->setColumnWidth(1, nWidth * 0.1);
+	ui->consoleTable->setColumnWidth(2, nWidth * 0.15);
+	ui->consoleTable->setColumnWidth(3, nWidth * 0.4);
+	ui->consoleTable->setColumnWidth(4, nWidth * 0.2);
+
+	ui->consoleTable->setEditTriggers(QAbstractItemView::NoEditTriggers); //设置不可编辑
 	ui->consoleTable->verticalHeader()->setDefaultSectionSize(22);		   //设置行距
 
 	ui->consoleTable->setContextMenuPolicy(Qt::CustomContextMenu);
