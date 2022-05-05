@@ -23,7 +23,7 @@
 // !Own
 #include "EasyCloudDef.h"
 #include "AboutWin.h"
-#include "filter.h"
+#include "CloudFilter.h"
 
 #include "DBSCAN_simple.h"
 #include "DBSCAN_precomp.h"
@@ -209,7 +209,7 @@ private:
 
 	pcl::PointCloud<pcl::PointXYZ>::Ptr ptrCloudXYZ;
 
-	Filter m_cloudFilter;
+	CloudFilter m_cloudFilter;
 
 public slots:
 	//*****************************************************
@@ -435,7 +435,7 @@ public slots:
 	// Remarks:		 
 	//				 
 	//*****************************************************
-	void StatisticalFilter();
+	void statisticalFilter();
 	
 };
 

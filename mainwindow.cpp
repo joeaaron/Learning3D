@@ -319,7 +319,7 @@ void MainWindow::on_actionSORFilter_triggered()
 	m_cloudFilter.move(dx + WIDGET_INT_SPACE, dy + WIDGET_INT_SPACE);
 	m_cloudFilter.show();
 
-	connect(&m_cloudFilter, SIGNAL(runBtnClicked()), this, SLOT(StatisticalFilter()));
+	connect(&m_cloudFilter, SIGNAL(runBtnClicked()), this, SLOT(statisticalFilter()));
 }
 
 void MainWindow::on_actionDownSample_triggered()
@@ -959,7 +959,7 @@ void MainWindow::SaveMultiCloud()
 
 }
 
-void MainWindow::StatisticalFilter()
+void MainWindow::statisticalFilter()
 {
 	if (!m_vctCloud.empty())
 	{

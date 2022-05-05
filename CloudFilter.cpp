@@ -1,7 +1,7 @@
-#include "filter.h"
+#include "CloudFilter.h"
 #include "mainwindow.h"
 
-Filter::Filter(QWidget* parents) :
+CloudFilter::CloudFilter(QWidget* parents) :
 	m_titleBar(nullptr)
 {
 	ui.setupUi(this);
@@ -17,7 +17,7 @@ Filter::Filter(QWidget* parents) :
 	m_dStdDev = ui.stddev->text().toDouble();
 };
 
-Filter::~Filter()
+CloudFilter::~CloudFilter()
 {
 	if (m_titleBar != nullptr)
 	{
@@ -27,7 +27,7 @@ Filter::~Filter()
 
 }
 
-void Filter::filterMethodChanged(int nIdx)
+void CloudFilter::filterMethodChanged(int nIdx)
 {
 	nIdx = ui.comboBox->currentIndex();
 	if (-1 == nIdx)
@@ -45,7 +45,7 @@ void Filter::filterMethodChanged(int nIdx)
 	}
 }
 
-void Filter::meanKChanged(QString strMeanK)
+void CloudFilter::meanKChanged(QString strMeanK)
 {
 	if (strMeanK.isEmpty())
 	{
@@ -61,7 +61,7 @@ void Filter::meanKChanged(QString strMeanK)
 	m_dMeanK = strMeanK.toDouble();
 }
 
-void Filter::stdDevChanged(QString strStdDev)
+void CloudFilter::stdDevChanged(QString strStdDev)
 {
 	if (strStdDev.isEmpty())
 	{
@@ -77,7 +77,7 @@ void Filter::stdDevChanged(QString strStdDev)
 	m_dStdDev = strStdDev.toDouble();
 }
 
-void Filter::initTitleBar()
+void CloudFilter::initTitleBar()
 {
 	m_titleBar = new MyTitleBar(this);
 	m_titleBar->move(0, 0);
@@ -89,22 +89,22 @@ void Filter::initTitleBar()
 	connect(m_titleBar, SIGNAL(signalButtonRunClicked()), this, SLOT(onButtonRunClicked()));
 }
 
-void Filter::onButtonRunClicked()
+void CloudFilter::onButtonRunClicked()
 {
 	emit runBtnClicked();
 }
 
-void Filter::onButtonCloseClicked()
+void CloudFilter::onButtonCloseClicked()
 {
 	close();
 }
 
-double Filter::GetMeanKVal() const
+double CloudFilter::GetMeanKVal() const
 {
 	return(m_dMeanK);
 }
 
-double Filter::GetStdVal() const
+double CloudFilter::GetStdVal() const
 {
 	return(m_dStdDev);
 }

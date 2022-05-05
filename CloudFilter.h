@@ -5,14 +5,14 @@
 #include "MyTitle.h"
 #include "EasyCloudDef.h"
 
-class Filter : public QWidget
+class CloudFilter : public QWidget
 {
 	Q_OBJECT
 
 public:
-	Filter(QWidget*parents = 0);
+	CloudFilter(QWidget*parents = 0);
 
-	~Filter();
+	~CloudFilter();
 
 public:
 	double GetMeanKVal() const;
@@ -33,7 +33,7 @@ signals:
 public slots:
 	//*****************************************************
 	// Function:	 filterMethodChanged
-	// FullName:	 Filter::filterMethodChanged
+	// FullName:	 CloudFilter::filterMethodChanged
 	// Description:	 切换滤波方法
 	// Parameters:   @ int
 	// Return value: 
@@ -44,7 +44,7 @@ public slots:
 
 	//*****************************************************
 	// Function:	 meanKChanged
-	// FullName:	 Filter::meanKChanged
+	// FullName:	 CloudFilter::meanKChanged
 	// Description:	 邻域点数修改
 	// Parameters:   @ QString
 	// Return value: 
@@ -55,7 +55,7 @@ public slots:
 
 	//*****************************************************
 	// Function:	 stdDevChanged
-	// FullName:	 Filter::stdDevChanged
+	// FullName:	 CloudFilter::stdDevChanged
 	// Description:	 标准偏差修改
 	// Parameters:   @ QString
 	// Return value: 
@@ -66,7 +66,7 @@ public slots:
 
 	//*****************************************************
 	// Function:	 onButtonCloseClicked
-	// FullName:	 Filter::onButtonCloseClicked
+	// FullName:	 CloudFilter::onButtonCloseClicked
 	// Description:	 关闭
 	// Parameters:   
 	// Return value: 
@@ -77,7 +77,7 @@ public slots:
 
 	//*****************************************************
 	// Function:	 onButtonRunClicked
-	// FullName:	 Filter::onButtonRunClicked
+	// FullName:	 CloudFilter::onButtonRunClicked
 	// Description:	 执行
 	// Parameters:   
 	// Return value: 
