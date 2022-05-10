@@ -102,6 +102,10 @@ void MainWindow::on_actionOpen_triggered()
 		cloudName->setIcon(0, QIcon(":/resource/images/icon.png"));
 		ui->dataTree->addTopLevelItem(cloudName);
 
+		QCheckBox* ptn = new QCheckBox(this);
+		ui->dataTree->setItemWidget(cloudName, 1, ptn);
+		connect(ptn, SIGNAL(clicked()), this, SLOT(itemClicked()));
+
 		// 输出窗口
 		ConsoleLog("Add", QString::fromLocal8Bit(m_cloud.strFileName.c_str()), QString::fromLocal8Bit(m_cloud.strPathName.c_str()), "Time cost: " + timeDiff + " s, Points: " + QString::number(m_cloud.ptrCloud->points.size()));
 
@@ -319,7 +323,7 @@ void MainWindow::on_actionSORFilter_triggered()
 	m_cloudFilter.move(dx + WIDGET_INT_SPACE, dy + WIDGET_INT_SPACE);
 	m_cloudFilter.show();
 
-	connect(&m_cloudFilter, SIGNAL(runBtnClicked()), this, SLOT(statisticalFilter()));
+	connect(&m_cloudFilter, SIGNAL(runBtnClicked()), this, SLOT(on_cloudFilter_triggered()));
 }
 
 void MainWindow::on_actionDownSample_triggered()
@@ -712,6 +716,11 @@ void MainWindow::itemSelected(QTreeWidgetItem* item, int count)
 	ui->qvtkWidget->update();
 }
 
+void MainWindow::itemClicked()
+{
+	cout << "asd";
+}
+
 void MainWindow::Init()
 {
 	// 界面初始化
@@ -740,7 +749,10 @@ void MainWindow::Init()
 	//设置默认主题
 	/*QString qss = darcula_qss;
 	qApp->setStyleSheet(qss);*/
-	//属性管理窗口
+
+	// 数据窗口
+	SetDataTable();
+	// 属性管理窗口
 	SetPropertyTable();
 	// 输出窗口
 	SetConsoleTable();
@@ -753,6 +765,16 @@ void MainWindow::Init()
 	viewer->createViewPort(0.0, 0.0, 0.5, 1.0, v1);*/
 
 	//viewer->addCoordinateSystem(0.5);
+}
+
+void MainWindow::SetDataTable()
+{
+	ui->dataTree->setColumnCount(2);
+
+	ui->dataTree->setColumnWidth(0, 150);
+	ui->dataTree->header()->setSectionResizeMode(1, QHeaderView::Fixed);
+	ui->dataTree->setColumnWidth(1, 20);
+	//ui->dataTree->setStyleSheet("QTreeView::item{width:250px;height:30px;}");
 }
 
 void MainWindow::SetPropertyTable()
@@ -959,7 +981,7 @@ void MainWindow::SaveMultiCloud()
 
 }
 
-void MainWindow::statisticalFilter()
+void MainWindow::on_cloudFilter_triggered()
 {
 	if (!m_vctCloud.empty())
 	{
@@ -967,22 +989,49 @@ void MainWindow::statisticalFilter()
 
 		TimeStart();
 
-		double dMeanK = m_cloudFilter.GetMeanKVal();
-		double dStdDev = m_cloudFilter.GetStdVal();
-
 		for (int i = 0; i != m_vctCloud.size(); i++)
 		{
-			pcl::StatisticalOutlierRemoval<PointT> sor;
 			Cloud::Ptr ptrCloudFiltered(new Cloud);
 
-			sor.setInputCloud(m_vctCloud[i].ptrCloud);
-			sor.setMeanK(dMeanK);
-			sor.setStddevMulThresh(dStdDev);
+			// 1.获取滤波类型
+			int nFilterType = m_cloudFilter.GetFilterType();
 
-			sor.filter(*ptrCloudFiltered);
+			// 2.统计滤波
+			if (0 == nFilterType)
+			{
+				pcl::StatisticalOutlierRemoval<PointT> sor;
+				
+				double dMeanK = m_cloudFilter.GetMeanKVal();
+				double dStdDev = m_cloudFilter.GetStdVal();
 
-			int nDownSamplePoints = ptrCloudFiltered->points.size();
-			m_nPointsNum += nDownSamplePoints;
+				sor.setInputCloud(m_vctCloud[i].ptrCloud);
+				sor.setMeanK(dMeanK);
+				sor.setStddevMulThresh(dStdDev);
+
+				sor.filter(*ptrCloudFiltered);
+
+			}
+			// 3.直通滤波
+			else
+			{
+				pcl::PassThrough<PointT> pass;
+				Cloud::Ptr ptrCloudFiltered(new Cloud);
+
+				pass.setInputCloud(m_vctCloud[i].ptrCloud);
+
+				std::string strFiledName = m_cloudFilter.GetFieldName().toStdString();
+				pass.setFilterFieldName(strFiledName);
+
+				double dMinLimit = m_cloudFilter.GetMinLimit();
+				double dMaxLimit = m_cloudFilter.GetMaxLimit();
+				pass.setFilterLimits(dMinLimit, dMaxLimit);
+
+				pass.setNegative(true);		// true:保留范围外的点; false:保留范围内的点
+				pass.filter(*ptrCloudFiltered);
+			}
+
+			int nFilteredPoints = ptrCloudFiltered->points.size();
+			m_nPointsNum += nFilteredPoints;
 
 			copyPointCloud(*ptrCloudFiltered, *m_vctCloud[i].ptrCloud);
 		}
@@ -992,8 +1041,10 @@ void MainWindow::statisticalFilter()
 		// 属性窗口
 		SetPropertyTable();
 		//输出窗口
-		ConsoleLog("StatisticalFilter", "All point clouds", "", "Time cost: " + timeDiff + " s, Points: " + QString::number(m_nPointsNum));
+		ConsoleLog("CloudFilter", "All point clouds", "", "Time cost: " + timeDiff + " s, Points: " + QString::number(m_nPointsNum));
 		//更新显示
 		ViewerCloud(m_vctCloud);
 	}
 }
+
+

@@ -32,6 +32,7 @@
 #include <pcl/filters/voxel_grid.h>
 #include <pcl/filters/extract_indices.h>
 #include <pcl/filters/statistical_outlier_removal.h>
+#include <pcl/filters/passthrough.h>
 #include <pcl/segmentation/sac_segmentation.h>
 #include <pcl/search/kdtree.h>
 #include <pcl/features/normal_3d.h>

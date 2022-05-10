@@ -161,9 +161,17 @@
          <height>180</height>
         </size>
        </property>
+       <attribute name="headerVisible">
+        <bool>true</bool>
+       </attribute>
        <column>
         <property name="text">
-         <string notr="true">Point Cloud File</string>
+         <string notr="true">File Name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Status</string>
         </property>
        </column>
       </widget>
@@ -465,6 +473,10 @@
    </property>
   </action>
   <action name="actionSORFilter">
+   <property name="icon">
+    <iconset resource="EasyCloud.qrc">
+     <normaloff>:/resource/images/filter.svg</normaloff>:/resource/images/filter.svg</iconset>
+   </property>
    <property name="text">
     <string>SORFilter</string>
    </property>

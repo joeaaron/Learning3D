@@ -20,5 +20,6 @@
 		<file>resource/images/about.png</file>
 		<file>resource/images/run.png</file>
 		<file>resource/images/close.png</file>
+		<file>resource/images/filter.svg</file>
     </qresource>
 </RCC>

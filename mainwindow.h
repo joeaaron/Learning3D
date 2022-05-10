@@ -19,7 +19,7 @@
 #include <QTime>
 #include <QMessageBox>
 #include <QTreeWidget>
-
+#include <QCheckBox>
 // !Own
 #include "EasyCloudDef.h"
 #include "AboutWin.h"
@@ -52,6 +52,16 @@ private:
 	//				 
 	//*****************************************************
 	void Init();
+	//*****************************************************
+	// Function:	 SetDataTable
+	// FullName:	 MainWindow::SetDataTable
+	// Description:	 设置资源管理窗口
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void SetDataTable();
 	//*****************************************************
 	// Function:	 SetPropertyTable
 	// FullName:	 MainWindow::SetPropertyTable
@@ -424,18 +434,28 @@ public slots:
 	//				 
 	//*****************************************************
 	void itemSelected(QTreeWidgetItem*, int);
-
 	//*****************************************************
-	// Function:	 StatisticalFilter
-	// FullName:	 MainWindow::StatisticalFilter
-	// Description:	 统计滤波
-	// Parameters:   @ QTreeWidgetItem*
-	//			     @ int
+	// Function:	 itemClicked
+	// FullName:	 MainWindow::itemClicked
+	// Description:	 点击当前项
+	// Parameters:  
+	//			    
 	// Return value: 
 	// Remarks:		 
 	//				 
 	//*****************************************************
-	void statisticalFilter();
+	void itemClicked();
+	//*****************************************************
+	// Function:	 on_cloudFilter_triggered
+	// FullName:	 MainWindow::on_cloudFilter_triggered
+	// Description:	 点云滤波
+	// Parameters:   
+	//			   
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_cloudFilter_triggered();
 	
 };
 
