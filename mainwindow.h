@@ -427,24 +427,25 @@ public slots:
 	// Function:	 itemSelected
 	// FullName:	 MainWindow::itemSelected
 	// Description:	 选中点云文件
-	// Parameters:   @ QTreeWidgetItem*
-	//			     @ int
+	// Parameters:  
+	//			QTreeWidgetItem* : 选中项
+	//			   int : 索引
 	// Return value: 
 	// Remarks:		 
 	//				 
 	//*****************************************************
-	void itemSelected(QTreeWidgetItem*, int);
+	void itemSelected(QTreeWidgetItem* item, int count);
 	//*****************************************************
 	// Function:	 itemClicked
 	// FullName:	 MainWindow::itemClicked
 	// Description:	 点击当前项
 	// Parameters:  
-	//			    
+	//			    bool : 选中/未选中
 	// Return value: 
 	// Remarks:		 
 	//				 
 	//*****************************************************
-	void itemClicked();
+	void itemClicked(bool);
 	//*****************************************************
 	// Function:	 on_cloudFilter_triggered
 	// FullName:	 MainWindow::on_cloudFilter_triggered

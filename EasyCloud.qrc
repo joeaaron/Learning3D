@@ -21,5 +21,7 @@
 		<file>resource/images/run.png</file>
 		<file>resource/images/close.png</file>
 		<file>resource/images/filter.svg</file>
+		<file>resource/images/show.png</file>
+		<file>resource/qss/Darcula.qss</file>
     </qresource>
 </RCC>

@@ -103,8 +103,9 @@ void MainWindow::on_actionOpen_triggered()
 		ui->dataTree->addTopLevelItem(cloudName);
 
 		QCheckBox* ptn = new QCheckBox(this);
+		//ptn->setIcon(QIcon(tr(":/resource/images/show.png")));
 		ui->dataTree->setItemWidget(cloudName, 1, ptn);
-		connect(ptn, SIGNAL(clicked()), this, SLOT(itemClicked()));
+		connect(ptn, SIGNAL(clicked(bool)), this, SLOT(itemClicked(bool)));
 
 		// 输出窗口
 		ConsoleLog("Add", QString::fromLocal8Bit(m_cloud.strFileName.c_str()), QString::fromLocal8Bit(m_cloud.strPathName.c_str()), "Time cost: " + timeDiff + " s, Points: " + QString::number(m_cloud.ptrCloud->points.size()));
@@ -716,9 +717,45 @@ void MainWindow::itemSelected(QTreeWidgetItem* item, int count)
 	ui->qvtkWidget->update();
 }
 
-void MainWindow::itemClicked()
+void MainWindow::itemClicked(bool bState)
 {
-	cout << "asd";
+	QList<QTreeWidgetItem*> itemList = ui->dataTree->selectedItems();
+
+	for (int i = 0; i != ui->dataTree->selectedItems().size(); i++) 
+	{
+		//QTreeWidgetItem* curItem = ui.dataTree->currentItem();
+		QTreeWidgetItem* curItem = itemList[i];
+
+		int id = ui->dataTree->indexOfTopLevelItem(curItem);
+		std::string strCloudId = "cloud" + QString::number(id).toStdString();
+		//QMessageBox::information(this, "cloud_id", QString::fromLocal8Bit(cloud_id.c_str()));
+
+		if (bState)
+		{
+			// 将strCloudId所对应的点云设置成透明
+			viewer->setPointCloudRenderingProperties(pcl::visualization::RenderingProperties::PCL_VISUALIZER_OPACITY, 0.0, strCloudId, 0);
+
+			QColor item_color = QColor(112, 122, 132, 255);
+			curItem->setTextColor(0, item_color);
+
+			m_vctCloud[id].bVisible = false;
+			// 输出窗口
+			ConsoleLog("Hide point clouds", "Point clouds selected", "", "");
+		}
+		else
+		{
+			viewer->setPointCloudRenderingProperties(pcl::visualization::RenderingProperties::PCL_VISUALIZER_OPACITY, 1.0, strCloudId, 0);
+
+			QColor item_color = QColor(0, 0, 0, 255);
+			curItem->setTextColor(0, item_color);
+
+			m_vctCloud[id].bVisible = true;
+			// 输出窗口
+			ConsoleLog("Show point clouds", "Point clouds selected", "", "");
+		}
+	}
+
+	ui->qvtkWidget->update();
 }
 
 void MainWindow::Init()
