@@ -23,5 +23,6 @@
 		<file>resource/images/filter.svg</file>
 		<file>resource/images/show.png</file>
 		<file>resource/qss/Darcula.qss</file>
+		<file>resource/qss/Windows.qss</file>
     </qresource>
 </RCC>

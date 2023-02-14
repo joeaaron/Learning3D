@@ -408,7 +408,7 @@ void MainWindow::on_actionRansacSeg_triggered()
 				//m_vctCloud[i].ptrCloud = ptrCloudPlane;
 
 				// filter plannar
-				extract.setNegative(true);
+				extract.setNegative(false);
 				extract.filter(*ptrCloudObj);
 			
 				copyPointCloud(*ptrCloudObj, *m_vctCloud[i].ptrCloud);

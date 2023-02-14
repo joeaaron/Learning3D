@@ -91,6 +91,7 @@
     <addaction name="menusegmenation"/>
     <addaction name="menucluster"/>
     <addaction name="menureconstruction"/>
+    <addaction name="actionStitch"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -479,6 +480,14 @@
    </property>
    <property name="text">
     <string>SORFilter</string>
+   </property>
+  </action>
+  <action name="actionStitch">
+   <property name="text">
+    <string>stitch</string>
+   </property>
+   <property name="toolTip">
+    <string>stitch</string>
    </property>
   </action>
  </widget>

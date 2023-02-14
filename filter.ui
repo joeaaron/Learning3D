@@ -211,12 +211,12 @@
        <widget class="QComboBox" name="comboBox">
         <item>
          <property name="text">
-          <string>统计学</string>
+          <string>邻域点数滤波</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>邻域点数滤波</string>
+          <string>直通滤波</string>
          </property>
         </item>
        </widget>
