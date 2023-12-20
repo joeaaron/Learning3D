@@ -73,6 +73,7 @@
       <string>segmenation</string>
      </property>
      <addaction name="actionRansacSeg"/>
+     <addaction name="actionEuclideanSeg"/>
     </widget>
     <widget class="QMenu" name="menucluster">
      <property name="title">
@@ -91,7 +92,6 @@
     <addaction name="menusegmenation"/>
     <addaction name="menucluster"/>
     <addaction name="menureconstruction"/>
-    <addaction name="actionStitch"/>
    </widget>
    <widget class="QMenu" name="menuAbout">
     <property name="title">
@@ -482,12 +482,9 @@
     <string>SORFilter</string>
    </property>
   </action>
-  <action name="actionStitch">
+  <action name="actionEuclideanSeg">
    <property name="text">
-    <string>stitch</string>
-   </property>
-   <property name="toolTip">
-    <string>stitch</string>
+    <string>EuclideanSeg</string>
    </property>
   </action>
  </widget>

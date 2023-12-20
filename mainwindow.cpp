@@ -426,6 +426,53 @@ void MainWindow::on_actionRansacSeg_triggered()
 	}
 }
 
+void MainWindow::on_actionEuclideanSeg_triggered()
+{
+	if (!m_vctCloud.empty())
+	{
+		m_nPointsNum = 0;
+
+		TimeStart();
+
+		for (int i = 0; i != m_vctCloud.size(); i++)
+		{
+			pcl::search::KdTree<PointT>::Ptr tree(new pcl::search::KdTree<PointT>);
+			tree->setInputCloud(m_vctCloud[i].ptrCloud);
+
+			std::vector<pcl::PointIndices> clusterIndices;
+			pcl::EuclideanClusterExtraction<PointT> ec;
+			ec.setClusterTolerance(0.1);				// 设置近邻搜索的搜索半径为2cm
+			ec.setMinClusterSize(100);					// 设置一个聚类需要的最少的点数目为100
+			ec.setMaxClusterSize(25000);				// 设置一个聚类需要的最大的点数目为25000
+			ec.setSearchMethod(tree);					// 设置点云的搜索机制
+			ec.setInputCloud(m_vctCloud[i].ptrCloud);
+			ec.extract(clusterIndices);
+
+			int nCount = 0;
+			for (auto& cluster : clusterIndices)
+			{
+				Cloud::Ptr ptrCloudCluster(new Cloud);
+				for (auto& idx : cluster.indices)
+				{
+					ptrCloudCluster->push_back(m_vctCloud[i].ptrCloud->points[idx]);
+				}
+				ptrCloudCluster->width = ptrCloudCluster->size();
+				ptrCloudCluster->height = 1;
+				ptrCloudCluster->is_dense = true;
+
+				m_nPointsNum = ptrCloudCluster->size();
+				nCount++;
+				QString timeDiff = TimeOff();
+				// 属性窗口
+				SetPropertyTable();
+				//输出窗口
+				ConsoleLog("Euclidean", "Current point clouds", "", "Time cost: " + timeDiff + " s, Points: " + QString::number(m_nPointsNum));
+			}
+		}
+
+	}
+}
+
 void MainWindow::on_actionDbScan_triggered()
 {
 	if (!m_vctCloud.empty())
@@ -676,7 +723,7 @@ void MainWindow::on_actionAbout_triggered()
 	pAboutWin->show();
 
 	// 输出窗口
-	ConsoleLog("About", "Z", "http://nightn.com", "Welcome to my blog!");
+	ConsoleLog("About", "Z", "itech.blog.csdn.net", "Welcome to my blog!");
 }
 
 void MainWindow::itemSelected(QTreeWidgetItem* item, int count)

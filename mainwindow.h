@@ -377,6 +377,16 @@ public slots:
 	//*****************************************************
 	void on_actionRansacSeg_triggered();
 	//*****************************************************
+	// Function:	 on_actionEuclideanSeg_triggered
+	// FullName:	 MainWindow::on_actionEuclideanSeg_triggered
+	// Description:	 欧氏聚类分割
+	// Parameters:
+	// Return value: 
+	// Remarks:		 
+	//				 
+	//*****************************************************
+	void on_actionEuclideanSeg_triggered();
+	//*****************************************************
 	// Function:	 on_actionDbScan_triggered
 	// FullName:	 MainWindow::on_actionDbScan_triggered
 	// Description:	 点云密度聚类

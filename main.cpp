@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 	app.setOrganizationName("Ride the Wave");
 	app.setApplicationName("Vision 3D");
 	//set app style by qss file
-	QFile fstyle(":/resource/qss/Darcula.qss");
+	QFile fstyle(":/resource/qss/Darcula.qss"); //0-Darcula.qss 1-Windows.qss
 	if (!fstyle.exists())
 		qDebug("Unable to set stylesheet, file not found\n");
 	else {
